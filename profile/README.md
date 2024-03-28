@@ -1,2 +1,2 @@
 ### Software doesn't maintain itself.
-Please consider contributing or helping maintain our projects, it goes a long way. 
+We need your help, please consider contributing or helping maintain our projects, it goes a long way. 
