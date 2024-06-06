@@ -14,5 +14,4 @@ A headless integrated tool to extend the native customizablity the official Stea
 - [Developer Usage](https://github.com/SteamClientHomebrew/Millennium/wiki/Getting-Started#installation)
 - [FAQ](https://github.com/SteamClientHomebrew/Millennium/wiki/Frequently-Asked-Questions)
 
-<br>
 <sub>Steam Homebrew is not affiliated with nor endorsed by Valve Corporation.</sub>
