@@ -1,4 +1,4 @@
-A headless integrated tool to extend the native customizablity the official Steam Client.
+A headless integrated tool to extend the native customizability of the official Steam Client.
 
 <img src="https://github.com/SteamClientHomebrew/.github/blob/main/showcase_flat.png" alt="img" align="right" width="560px" height="400px">  
 
