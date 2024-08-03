@@ -10,8 +10,8 @@ A headless integrated tool to extend the native customizability of the official 
 - Remove bloated components to improve performance.
 
 ### Links
-- [Installation](https://github.com/SteamClientHomebrew/Millennium/wiki/Getting-Started#installation)
-- [Developer Usage](https://github.com/SteamClientHomebrew/Millennium/wiki/Getting-Started#installation)
-- [FAQ](https://github.com/SteamClientHomebrew/Millennium/wiki/Frequently-Asked-Questions)
+- [Installation](https://docs.steambrew.app/users/installing)
+- [Developer Usage](https://docs.steambrew.app/developers)
+- [FAQ](https://docs.steambrew.app/users/faq)
 
 <sub>Steam Homebrew is not affiliated with nor endorsed by Valve Corporation.</sub>
