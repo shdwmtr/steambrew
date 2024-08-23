@@ -1,16 +1,26 @@
-<img src="https://i.imgur.com/9qYPFSA.png" alt="Logo" width="40">
+<div align="center">
+<!-- <img src="https://i.imgur.com/9qYPFSA.png" alt="Alt text" width="40">
+  ## Millennium for Steam® -->
 
-## [SCH] Community Frontend
+<h3><img align="center" height="40" src="https://i.imgur.com/9qYPFSA.png"> &nbsp; &nbsp;Steam Client Homebrew</h3>
+<br>
 
-Live build: https://steambrew.app
+</div>
+
+## Contents
+
+* [User API](./api/)
+* [Documentation](./docs/)
+* [SteamBrew App](./src/)
+* [GitHub Profile](./profile/)
 
 ## Building
 
 ```
 git clone https://github.com/SteamClientHomebrew/SteamBrewApp.git
 cd SteamBrewApp
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ## Contributing
