@@ -8,7 +8,7 @@ Here you'll learn a little bit about a template theme code base, and how to get 
 
 ## Creating a Template
 
-Clone or download this [template repository](https://github.com/SteamClientHomebrew/Themes) and place it in your skins folder. 
+Clone or download this [template repository](https://github.com/SteamClientHomebrew/Millennium/tree/main/examples/theme) and place it in your skins folder. 
 
 ## Getting Ready 
 
