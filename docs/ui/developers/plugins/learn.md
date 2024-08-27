@@ -3,14 +3,17 @@ title: Introduction
 ---
 # Introduction
 
-Why do we need a backend and a frontend? Simply put, you don't. Most of the code that interacts with steam will be done in Javascript. The backend and frontend are symbiotically intended to seamlessly connect between the 2 languages. The backend is primarily used whenever you need to interact with the user's PC, and the frontend is primarily used to interact with the Steam Client internally. 
+Millennium gives us the ability to modify portions of the Steam Client using plugins. These plugins contain 2 notable portions; a frontend, written in typescript, and a backend, written in python. A frontend is something that interacts with Steams UI, and the backend is something that can interact with the end-users PC.
 
-## [Python API](/developers/plugins/python)
-- Obviously, the Python API is accessible in python. It's intended to provide some boiler plate functions to make getting started easier so you don't need any prerequisite understanding.
-- Main file `backend/main.py`
+Do we need a backend and a frontend? Simply put, you don't. Most of the code that interacts with steam will be done in Typescript. The backend and frontend are symbiotically intended to seamlessly connect between the 2 languages. The backend is primarily used whenever you need to interact with the user's PC, and the frontend is primarily used to interact with the Steam Client internally. 
 
+# Getting Started
 
-## [TypeScript API](/developers/plugins/typescript)
-- Again, obviously, the Javascript API is accessible in JavaScript. It's intended to provide some boiler plate functions to make getting started easier so you don't need any prerequisite understanding.
+Creating a plugin is a very straight forward process. Simply follow the README instructions given in the [plugin example](https://github.com/SteamClientHomebrew/Millennium/tree/main/examples/plugin#readme) found in the Millennium repository.
 
-- Main file `frontend/index.tsx`
+## Language API Reference
+
+* [Python API](/developers/plugins/python)
+    * Main file `backend/main.py`
+* [TypeScript API](/developers/plugins/typescript)
+    * Main file `frontend/index.tsx`
