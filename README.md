@@ -12,13 +12,12 @@
 * [User API](./api/)
 * [Documentation](./docs/)
 * [SteamBrew App](./src/)
-* [GitHub Profile](./profile/)
 
 ## Building
 
 ```
-git clone https://github.com/SteamClientHomebrew/SteamBrewApp.git
-cd SteamBrewApp
+git clone https://github.com/shdwmtr/steambrew.git
+cd steambrew
 pnpm install
 pnpm run dev
 ```
