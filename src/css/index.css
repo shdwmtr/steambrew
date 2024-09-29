@@ -4964,3 +4964,22 @@ header#navbar {
       display: -webkit-box;
     }
 }
+
+.Toastify__toast-body > div:last-child {
+    font-family: inherit;
+}
+
+.Toastify__toast-theme--dark {
+    font-family: inherit !important;
+}
+
+a#uninstall-btn {
+    background: red;
+    border-radius: 6px;
+    width: 100%;
+    border: 1px solid #ff7e7e;
+}
+
+.Toastify__toast-container {
+    min-width: 400px;
+}

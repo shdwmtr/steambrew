@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 import RenderFooter from '../app/components/FooterComponent'
@@ -6,6 +9,7 @@ import { MarkdownToHtml } from '../app/utils/MarkDownConvert'
 
 import { DateToString, FormatNumber } from '../app/utils/Util'
 import '../css/index.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 function HeadProp({ json }) {
     return (
@@ -52,27 +56,117 @@ export const getServerSideProps = (async (context) => {
 
 export default function Home({ json, markdown, isSteamClient }) 
 {
-    const startDownload = (download, redirect) => 
-    {
-        const url = 'https://steambrew.app/api/v2/download';
-        const data = {
+    const [isMillenniumConnected, setIsMillenniumConnected] = useState(false);
+    const [isThemeInstalled, setIsThemeInstalled] = useState(false);
+    const [millenniumIPC, setMillenniumIPC] = useState(null);
+
+    const GetThemeStatus = (millenniumIPC) => {
+        millenniumIPC.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+
+            console.log(`theme is installed ? ${data.data}`);
+
+            if (data.type === 'checkInstall') {
+                setIsThemeInstalled(data.data);
+            }
+        })
+        millenniumIPC.send(JSON.stringify({ type: 'checkInstall', data: { 
             owner: json?.data?.github?.owner,
             repo: json?.data?.github?.repo
-        };
+        } }));
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        if (redirect) window.location.href = download
-    }
-
-    const handleDragStart = (event) => {
-        event.dataTransfer.setData('text/plain', `${json?.data?.github?.repo}.zip:${json?.download}`);
     };
 
-    const handleDragEnd = () => startDownload(json?.download, false)
+    const EstablishConnection = () => {
+        const millenniumIPC = new WebSocket('ws://localhost:9123');
+        setMillenniumIPC(millenniumIPC);
+    
+        millenniumIPC.onopen = () => {
+            setIsMillenniumConnected(true)
+            GetThemeStatus(millenniumIPC);
+        };
+
+        millenniumIPC.onerror = () => {
+            toast.warn("You're currently in view mode. To install this theme you must have Millennium installed with Steam open.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setIsMillenniumConnected(false)
+        };
+    };
+
+    useEffect(() => { EstablishConnection() }, []);
+
+    const InstallTheme = () => {
+        setTimeout(() => {
+            millenniumIPC.send(JSON.stringify({ 
+                type: 'installTheme', 
+                data: { 
+                    repo: json?.data?.github?.repo, 
+                    owner: json?.data?.github?.owner 
+                } 
+            }));
+        }, 2000)
+
+        return new Promise((resolve, reject) => {
+            millenniumIPC.addEventListener('message', (event) => {
+                const data = JSON.parse(event.data);
+
+                if (data.type === 'installTheme') {
+                    if (data.data) {
+                        resolve(true);
+                    } else {
+                        reject(false);
+                    }
+                    GetThemeStatus(millenniumIPC);
+                }
+            });
+        });
+    }
+
+    const startDownload = () => {
+        toast.promise(InstallTheme(), {
+            pending: `Downloading and Installing ${json.name}. This may take a moment...`,
+            success: `Successfully installed!`,
+            error: `Failed to install ${json.name}`,   
+        });
+    }
+
+    const UninstallTheme = () => {
+        setTimeout(() => {
+            millenniumIPC.send(JSON.stringify({ 
+                type: 'uninstallTheme', 
+                data: { 
+                    repo: json?.data?.github?.repo, 
+                    owner: json?.data?.github?.owner 
+                } 
+            }));
+        }, 2000)
+
+        return new Promise((resolve, reject) => {
+            millenniumIPC.addEventListener('message', (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === 'uninstallTheme') {
+                    data.data ? resolve(true) : resolve(false);
+                    GetThemeStatus(millenniumIPC);
+                }
+            });
+        });
+    }
+
+    const startUninstall = () => { 
+        toast.promise(UninstallTheme(), {
+            pending: `Uninstalling ${json.name}...`,
+            success: `Successfully uninstalled!`,
+            error: `Failed to uninstall theme ${json.name}`,   
+        });
+    }
 
   return (
     <div className={GeistSans.className}>
@@ -80,13 +174,26 @@ export default function Home({ json, markdown, isSteamClient })
     <div className="os-resize-observer-host observed">
       <div className="os-resize-observer"></div>
     </div>
-    <div className="os-padding">
+    <div className={`os-padding ${GeistSans.className}`}>
         <div className="os-content">
           <div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
           <div className="vm-placement" id="vm-av" data-format="isvideo"></div>
           {!isSteamClient && <RenderHeader/>}
           <section id="main-page-content">
           <section id="addon-details" className="page-section">
+          <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                className={GeistSans.className}
+            />
               <div className="page-section-inner theme-view-panel">
               <img loading="lazy" src={json?.splash_image} className="addon-backdrop"/>
               <div className="flex-container align-center justify-between" id="addon-details-title">
@@ -108,18 +215,20 @@ export default function Home({ json, markdown, isSteamClient })
                       <section id="addon-actions">
                       <div className="btn-container direction-column">
                           <div className='wrap-buttons'>
-                          {!isSteamClient ? 
-                              <a onClick={_ => startDownload(json?.download, false)} href={json?.download} className="btn btn-primary" id='download-btn'>
-                                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-                                    <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
+                          {isMillenniumConnected && (
+
+                            !isThemeInstalled ? 
+                                <a onClick={_ => startDownload()} className="btn btn-primary" id='download-btn'>
+                                    <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVR4nO2UOwqAMBBE3zWsLCxsLLSw8vYGPYSghYVgIR4hErAQ/58EQfNgIBCYIRN24U9kgBwlTATImWzAAmkr+l5F1Yrplso7ATHQnTDvgeTuKyKg3TFXdyEP8YF6xbwBAjThAsXEXP2Ph2YcIB+3qjpb9CMuDJY8kDAdkBoo4CUG+aZ0PJTVTQsAAAAASUVORK5CYII="/>
+                                    <span draggable>Install</span>
+                                </a>  
+                            :
+                            <a onClick={_ => startUninstall()} className="btn btn-primary" id='uninstall-btn'>
+                                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
+                                    <path d="M 24 4 C 20.491685 4 17.570396 6.6214322 17.080078 10 L 6.5 10 A 1.50015 1.50015 0 1 0 6.5 13 L 8.6367188 13 L 11.15625 39.029297 C 11.43025 41.862297 13.785813 44 16.632812 44 L 31.367188 44 C 34.214187 44 36.56875 41.862297 36.84375 39.029297 L 39.363281 13 L 41.5 13 A 1.50015 1.50015 0 1 0 41.5 10 L 30.919922 10 C 30.429604 6.6214322 27.508315 4 24 4 z M 24 7 C 25.879156 7 27.420767 8.2681608 27.861328 10 L 20.138672 10 C 20.579233 8.2681608 22.120844 7 24 7 z M 19.5 18 C 20.328 18 21 18.671 21 19.5 L 21 34.5 C 21 35.329 20.328 36 19.5 36 C 18.672 36 18 35.329 18 34.5 L 18 19.5 C 18 18.671 18.672 18 19.5 18 z M 28.5 18 C 29.328 18 30 18.671 30 19.5 L 30 34.5 C 30 35.329 29.328 36 28.5 36 C 27.672 36 27 35.329 27 34.5 L 27 19.5 C 27 18.671 27.672 18 28.5 18 z"></path>
                                 </svg>
-                                <span draggable>Download</span>
-                            </a>
-                            // Render download area when inside the steam client (from millennium)
-                            : 
-                            <div id="draggableFile" className="btn btn-primary" style={{ cursor: 'move', userSelect: 'none'}} draggable onDragStart={e => handleDragStart(e)} onDragEnd={() => handleDragEnd()}>
-                                <span draggable>Drop on Millennium</span>
-                            </div>           
+                                <span draggable>Uninstall</span>
+                            </a>)  
                           }
                           <a rel="noreferrer noopener" target="_blank" href={`https://github.com/${json?.data?.github?.owner}/${json?.data?.github?.repo}/`} className="btn btn-secondary" id="view-source">
                               <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
