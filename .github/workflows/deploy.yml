@@ -1,12 +1,7 @@
-# Deploy Docs
-# This workflow will build and deploy the docs to Firebase Hosting
-
-name: Deploy Docs
+name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   checks: write
