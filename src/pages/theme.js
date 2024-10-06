@@ -108,6 +108,19 @@ export default function Home({ json, markdown, isSteamClient })
 
     useEffect(() => { EstablishConnection() }, []);
 
+    const IncrementDownloadCount = () => {
+        fetch(`https://steambrew.app/api/v2/download`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                owner: json?.data?.github?.owner,
+                repo: json?.data?.github?.repo,
+            }),
+        })
+    }
+
     const InstallTheme = () => {
         setTimeout(() => {
             millenniumIPC.send(JSON.stringify({ 
@@ -126,6 +139,7 @@ export default function Home({ json, markdown, isSteamClient })
                 if (data.type === 'installTheme') {
                     if (data.data) {
                         resolve(true);
+                        IncrementDownloadCount();
                     } else {
                         reject(false);
                     }
