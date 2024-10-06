@@ -87,7 +87,12 @@ export default function Home({ json, markdown, isSteamClient })
         };
 
         millenniumIPC.onerror = () => {
-            toast.warn("You're currently in view mode. To install this theme you must have Millennium installed with Steam open.", {
+            toast.warn(
+                <div>
+                    You're currently in view mode. To install this theme you must have Millennium installed with Steam open. &nbsp;
+                    <a href=''>Learn more...</a>
+                </div>, 
+            {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,

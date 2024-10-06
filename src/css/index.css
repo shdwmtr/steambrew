@@ -502,7 +502,7 @@ body {
     background-position: center;
     overflow: hidden;
     height: calc(100vh);
-    max-height: 1000px;
+    /* max-height: 1000px; */
     min-height: 532px;
     padding-bottom: 0
 }
