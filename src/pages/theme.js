@@ -86,11 +86,11 @@ export default function Home({ json, markdown, isSteamClient })
             GetThemeStatus(millenniumIPC);
         };
 
-        millenniumIPC.onerror = () => {
+        millenniumIPC.onerror = async () => {
             toast.warn(
                 <div>
                     You're currently in view mode. To install this theme you must have Millennium installed with Steam open. &nbsp;
-                    <a href=''>Learn more...</a>
+                    <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a>
                 </div>, 
             {
                 position: "bottom-right",
@@ -102,8 +102,32 @@ export default function Home({ json, markdown, isSteamClient })
                 progress: undefined,
                 theme: "dark",
             });
+
+            const isBrave = navigator.brave && await navigator.brave.isBrave() || false
+
+            if (isBrave) {
+                toast.info(
+                    <div>
+                        It appears you're using Brave browser. Brave may block the connection between this site and Millennium. &nbsp;
+                        <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a> 
+                    </div>, 
+                {
+                    position: "bottom-right",
+                    autoClose: 15000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+
+
             setIsMillenniumConnected(false)
         };
+
+        millenniumIPC.onerror();
     };
 
     useEffect(() => { EstablishConnection() }, []);

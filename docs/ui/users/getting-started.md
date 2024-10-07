@@ -18,6 +18,15 @@ If you don't already have any themes, you'll need to install some. Head over to 
 1. Navigate to Steam Settings -> Themes -> Client Theme and select your newly installed theme.
 
 
+:::info
+If you are using the Brave browser, you may have difficulties installing themes out of the box, specifically the website saying you're in preview mode when Steam is open. To fix this, open the Brave ad blocker, and apply the following setting.
+![alt text](Untitled.png)
+
+You can alternatively disable the entire shield for the site.
+:::
+
+---
+
 # Plugins 
 
 As of 6/11/2024, plugins don't quite yet have proper support. The only supported plugin is the pre-installed plugin "Millennium". We hope to have proper support in the near future! Stick around for development, or contribute if you'r tech savvy!
