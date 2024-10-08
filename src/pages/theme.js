@@ -126,8 +126,6 @@ export default function Home({ json, markdown, isSteamClient })
 
             setIsMillenniumConnected(false)
         };
-
-        millenniumIPC.onerror();
     };
 
     useEffect(() => { EstablishConnection() }, []);
