@@ -22,6 +22,7 @@
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.4",
     "rehype-stringify": "^10.0.0",
+    "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
     "unified": "^11.0.4"

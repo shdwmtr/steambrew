@@ -4983,3 +4983,19 @@ a#uninstall-btn {
 .Toastify__toast-container {
     min-width: 400px;
 }
+
+.markdown-body table th {
+    background: transparent !important;
+}
+thead {
+    background: transparent !important;
+}
+tbody {
+    background: transparent !important;
+}
+tr {
+    background: transparent !important;
+}
+.markdown-body table th, .markdown-body table td {
+    border: 1px solid #333 !important;  
+}
