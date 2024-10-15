@@ -13,7 +13,7 @@ To install Millennium on windows, we use a PowerShell installer script. To run t
 This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.ps1). 
 
 ```powershell
-iwr -useb "https://raw.githubusercontent.com/SteamClientHomebrew/Millennium/main/scripts/install.ps1" | iex
+iwr -useb "https://steambrew.app/install.ps1" | iex
 ```
 
 ### Manual

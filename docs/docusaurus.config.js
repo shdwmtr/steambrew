@@ -11,7 +11,7 @@ const config = {
   title: 'Steam Homebrew',
   tagline: 'Creating, developing, and maintaining open source addons for the Steam® Client',
   favicon: 'static/img/icon.png',
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://docs.steambrew.app',
   baseUrl: '/',
   organizationName: 'SteamClientHomebrew',
   projectName: 'Millennium', 
