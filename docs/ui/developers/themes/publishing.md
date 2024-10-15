@@ -23,7 +23,7 @@ As you've probably seen from other themes, the README.MD file in you GitHub repo
 - NSFW Content
 - Political Content
 - Gifs/Images involving real people
-- Talking about anything other than you're theme
+- Talking about anything other than your theme
 - Any fully paid services
 
 **Permitted:**
