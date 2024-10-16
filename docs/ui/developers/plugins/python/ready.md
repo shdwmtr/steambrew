@@ -1,4 +1,9 @@
 # ready()
+
+:::important
+Calling this function is required if you have a python backend in your plugin. If you chose to not have a python backend, set `useBackend` to `false` in your `plugin.json`
+:::
+
 Posts a message to millennium core, letting it know that the plugin is ready to be mounted.
 
 This function should be called once and only once during plugin initialization.
