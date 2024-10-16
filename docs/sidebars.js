@@ -64,6 +64,7 @@ module.exports = {
             },
             items: [
               'developers/plugins/learn',
+              'developers/plugins/packages',
               {
                 type: 'category',
                 label: 'Python Reference',
