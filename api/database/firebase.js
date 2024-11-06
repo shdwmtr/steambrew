@@ -11,6 +11,20 @@ const firebase = {
             })
         })
     },
+    getPluginData: () => {
+        return new Promise((resolve) => {
+            db.collection('Plugins').doc("PluginData").get().then(snap => {
+                resolve(snap)
+            })
+        })
+    },
+    setPluginData: (data) => {
+        return new Promise((resolve) => {
+            db.collection('Plugins').doc("PluginData").set(data).then(() => {
+                resolve()
+            })
+        })
+    },
     from_id : (id) => {
         return new Promise((resolve, reject) => {
             db.collection('V2').doc(id).get().then(snap => {

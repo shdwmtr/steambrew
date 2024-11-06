@@ -4,7 +4,7 @@ const cors = require('cors')
 const express = require("express");
 
 const millennium = express()
-// millennium.listen(3000)
+millennium.listen(3000)
 
 /* Setup express posting and CORS */
 millennium.use(express.json())
@@ -26,6 +26,9 @@ const { get_featured } = require('./v2/featured.js')
 const { get_update_v2 } = require("./v2/get-update.js")
 const { get_update } = require("./v2/get-update.js")
 const { download } = require("./v2/download.js")
+
+const { RetreivePluginList } = require("./plugin/GetPluginList.js")
+const { GetPluginData } = require("./plugin/GetPluginData.js")
 
 millennium.get("/api/updater", cache_handler, (_, res) => {
     res.json({
@@ -84,6 +87,25 @@ millennium.get("/api/cache/reset", cache_handler, (_, res) => {
     res.json({
         success: true
     })
+})
+
+/**
+ * Support for plugins
+ */
+
+millennium.get("/api/v1/plugins", cache_handler, async (req, res) => {  
+    const pluginList = await RetreivePluginList()
+    const pluginData = await GetPluginData(pluginList)
+
+    res.json(pluginData)
+})
+
+millennium.get("/api/v1/plugins/:id", cache_handler, async (req, res) => {
+    const pluginList = await RetreivePluginList()
+    const pluginData = await GetPluginData(pluginList)
+
+    const plugin = pluginData.find(plugin => plugin.id === req.params.id)
+    res.json(plugin)
 })
 
 exports.api = functions.https.onRequest(millennium)

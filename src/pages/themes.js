@@ -35,7 +35,7 @@ function ThemeLibrary({ isSteamClient }) {
 
 				const buffer = ["All"];
                 result.forEach(theme => {
-                    theme.tags.forEach(tag => {
+                    theme?.tags?.forEach(tag => {
                         if (!buffer.includes(tag)) {
                             buffer.push(tag);
                         }
@@ -130,6 +130,7 @@ function ThemeLibrary({ isSteamClient }) {
 				<div className="header-left">
 					<h1 className="title">Pick a Flavour!</h1>
 					<p className="title-tooltip">Browse the community's custom made themes. We might have exactly what you're looking for!</p>
+					<p className="title-tooltip add-new"><a href="https://github.com/SteamClientHomebrew/Millennium/issues/new?assignees=&labels=enhancement&projects=&template=THEME-SUBMISSION.yml&title=%5BSubmission%5D">Have your own theme to add here?</a></p>
 				</div>
 				</div>
 			</section>
