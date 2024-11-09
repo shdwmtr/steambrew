@@ -229,6 +229,7 @@ export default function Home({ json, markdown, isSteamClient })
           {!isSteamClient && <RenderHeader/>}
           <section id="main-page-content">
           <section id="addon-details" className="page-section">
+          <div className="caution-tape">This page is under construction, and does NOT currently function!</div>
           <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

@@ -10,5 +10,10 @@
         "firebase-debug.*.log"
       ]
     }
-  ]
+  ],
+  "emulators": {
+    "functions": {
+      "port": 3000
+    }
+  }
 }

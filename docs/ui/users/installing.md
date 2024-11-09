@@ -12,6 +12,8 @@ To install Millennium on windows, we use a PowerShell installer script. To run t
 
 This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.ps1). 
 
+**Millennium is entirely portable, and the following script doesn't change any system configuration.**
+
 ```powershell
 iwr -useb "https://steambrew.app/install.ps1" | iex
 ```
@@ -26,9 +28,7 @@ Start by downloading the Millennium's Windows assets from [this repository](http
 
 ## Linux
 
-:::warning
-Millennium on linux is mostly uncharted territory. There is absolutely no guarantee that Millennium will work OOB/at all. Proper support is coming, but its not quite here just yet. If you face any issues, report them on the repository, but do not expect a immediate fix. 
-:::
+Like to see Millennium apart of your distributions user package repository? Anyone is permitted to package Millennium and upload it to your favorite package manager; Just keep in mind solely you will maintain said package.
 
 ### Automatic
 **Shell (pre-built binary)**

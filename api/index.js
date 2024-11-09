@@ -4,7 +4,10 @@ const cors = require('cors')
 const express = require("express");
 
 const millennium = express()
-millennium.listen(3000)
+
+// if (process.env.NODE_ENV !== 'production') {
+//     millennium.listen(3000)
+// }
 
 /* Setup express posting and CORS */
 millennium.use(express.json())

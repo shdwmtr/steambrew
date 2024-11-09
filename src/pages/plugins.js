@@ -126,6 +126,7 @@ function PluginLibrary({ isSteamClient }) {
 			{!isSteamClient ? RenderHeader() : <></>}
 			<main id="main-page-content">
 			<section id="addons-header" className="page-section content-header">
+				<div className="caution-tape">This page is under construction, and does NOT currently function!</div>
 				<div className="page-section-inner flex-container justify-between align-center" id="theme-header">
 				<div className="header-left">
 					<h1 className="title">Let's Get Plugging!</h1>

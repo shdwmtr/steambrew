@@ -5011,3 +5011,15 @@ tr {
     overflow: hidden;
     white-space: nowrap;
 }
+
+.caution-tape {
+    background: repeating-linear-gradient(135deg, #574d00, #574d00 30px, #2b2b2b 30px, #2b2b2b 60px);
+    height: 75px;
+    margin-top: -50px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    color: white;
+}

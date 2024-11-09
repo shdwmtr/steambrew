@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { graphql_featured } = require("./components/graphql-handler");
 const { firebase } = require("../database/firebase.js")
 const { graphql } = require("./components/graphql-interop.js")

@@ -57,8 +57,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: | 
           cd api
-          # firebase use --add steam-brew
-          # firebase deploy --only functions --token $FIREBASE_TOKEN
+          firebase deploy --only functions --token $FIREBASE_TOKEN --project=steam-brew
 
       - name: Deploy Main Site
         env:
