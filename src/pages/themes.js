@@ -8,7 +8,7 @@ import RenderHeader from '../app/components/HeaderComponent'
 import { DisplayFluentyAd } from '../app/components/fluenty/RenderFluenty'
 import '../css/index.css'
 import Select from 'react-select';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateCard from '../app/components/themes/CardComponent';
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -190,9 +190,9 @@ function ThemeLibrary({ isSteamClient }) {
 								<div className="card-container">
 									{ DisplayFluentyAd() }
 									{ cards.map((tag, index) => (
-										<div key={index}>
+										<React.Fragment key={index}>
 											{tag}
-										</div>
+										</React.Fragment>
 									))}	
 								</div>
 							}
