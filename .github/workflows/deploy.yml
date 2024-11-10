@@ -40,9 +40,16 @@ jobs:
       - name: Set up Google Application Credentials
         run: |
           mkdir -p ./api/credentials
-          printf "%s" "${{ secrets.API_SERVICE_KEY }}" > ./api/credentials/cert.json
+          echo "$FIREBASE_CREDENTIALS" | base64 -d > ./api/credentials/cert.json
         env:
-          API_SERVICE_KEY: ${{ secrets.API_SERVICE_KEY }}
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+
+      - name: Setup Environment Variables
+        run: |
+          mkdir -p ./api
+          echo "$BEARER" > ./api/.env
+        env:
+          BEARER: ${{ secrets.BEARER }}
 
       - name: Deploy Documentation
         env:
