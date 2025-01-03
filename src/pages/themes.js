@@ -10,6 +10,7 @@ import '../css/index.css'
 import Select from 'react-select';
 import React, { useState, useEffect } from 'react';
 import CreateCard from '../app/components/themes/CardComponent';
+import { API_URL } from '@/app/utils/globals';
 // const inter = Inter({ subsets: ["latin"] });
 
 export async function getServerSideProps(context) {
@@ -30,7 +31,7 @@ function ThemeLibrary({ isSteamClient }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://steambrew.app/api/v2/');
+                const response = await fetch(API_URL + '/api/v2/');
                 let result = await response.json();
 
 				const buffer = ["All"];

@@ -1,10 +1,10 @@
 const querystring = require("querystring")
 
-const RetreivePluginList = async () => {
+const RetrievePluginList = async () => {
     return new Promise((resolve, reject) => {
         fetch("https://api.github.com/repos/shdwmtr/plugdb/contents/plugins", {
             headers: {
-                'Authorization': `Bearer ${process.env.BEARER}`,
+                'Authorization': process.env.BEARER,
                 'Content-Type': 'application/json'
             },
         })
@@ -30,4 +30,4 @@ const RetreivePluginList = async () => {
     })
 }
 
-module.exports = { RetreivePluginList }
+module.exports = { RetrievePluginList }

@@ -3,9 +3,9 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "serve": "firebase emulators:start --only functions --project=steam-brew",
-    "shell": "firebase functions:shell --project=steam-brew --port=3000",
+    "shell": "firebase functions:shell --project=steam-brew --port=3001",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "firebase deploy --only functions --project=steam-brew",
     "logs": "firebase functions:log"
   },
   "engines": {

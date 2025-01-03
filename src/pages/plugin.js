@@ -7,9 +7,12 @@ import RenderFooter from '../app/components/FooterComponent'
 import RenderHeader from '../app/components/HeaderComponent'
 import { MarkdownToHtml } from '../app/utils/MarkDownConvert'
 
-import { DateToString, FormatNumber } from '../app/utils/Util'
+import { DateToString, FormatNumber, FormatBytes } from '../app/utils/Util'
 import '../css/index.css'
 import 'react-toastify/dist/ReactToastify.css';
+
+import { API_URL } from '../app/utils/globals';
+import { Tooltip } from 'react-tooltip';
 
 function HeadProp({ json }) {
 
@@ -46,11 +49,13 @@ function HeadProp({ json }) {
 
 export const getServerSideProps = (async (context) => {
 
-    const res = await fetch(`http://localhost:3000/api/v1/plugins/` + context.query.id)
+    const res = await fetch(API_URL + `/api/v1/plugin/` + context.query.id)
     const json = await res.json()
 
     const readme = json?.readme
-    const markdown = await MarkdownToHtml(readme);
+    console.log(json)
+
+    const markdown = await MarkdownToHtml(readme, json?.repoOwner, json?.repoName);
 
     const isSteamClient = /Valve Steam Client/.test(context.req.headers['user-agent']);
 
@@ -85,104 +90,84 @@ export default function Home({ json, markdown, isSteamClient })
     };
 
     const EstablishConnection = () => {
-        const millenniumIPC = new WebSocket('ws://localhost:9123');
-        setMillenniumIPC(millenniumIPC);
+        // const millenniumIPC = new WebSocket('ws://localhost:9123');
+        // setMillenniumIPC(millenniumIPC);
     
-        millenniumIPC.onopen = () => {
-            setIsMillenniumConnected(true)
-            GetThemeStatus(millenniumIPC);
-        };
+        // millenniumIPC.onopen = () => {
+        //     setIsMillenniumConnected(true)
+        //     GetThemeStatus(millenniumIPC);
+        // };
 
-        millenniumIPC.onerror = async () => {
-            toast.warn(
-                <div>
-                    You're currently in view mode. To install this theme you must have Millennium installed with Steam open. &nbsp;
-                    <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a>
-                </div>, 
-            {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+        // millenniumIPC.onerror = async () => {
+        //     toast.warn(
+        //         <div>
+        //             You're currently in view mode. To install this theme you must have Millennium installed with Steam open. &nbsp;
+        //             <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a>
+        //         </div>, 
+        //     {
+        //         position: "bottom-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "dark",
+        //     });
 
-            const isBrave = navigator.brave && await navigator.brave.isBrave() || false
+        //     const isBrave = navigator.brave && await navigator.brave.isBrave() || false
 
-            if (isBrave) {
-                toast.info(
-                    <div>
-                        It appears you're using Brave browser. Brave may block the connection between this site and Millennium. &nbsp;
-                        <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a> 
-                    </div>, 
-                {
-                    position: "bottom-right",
-                    autoClose: 15000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-            }
+        //     if (isBrave) {
+        //         toast.info(
+        //             <div>
+        //                 It appears you're using Brave browser. Brave may block the connection between this site and Millennium. &nbsp;
+        //                 <a href='https://docs.steambrew.app/users/getting-started#installing-themes'>Learn more...</a> 
+        //             </div>, 
+        //         {
+        //             position: "bottom-right",
+        //             autoClose: 15000,
+        //             hideProgressBar: false,
+        //             closeOnClick: true,
+        //             pauseOnHover: true,
+        //             draggable: true,
+        //             progress: undefined,
+        //             theme: "dark",
+        //         });
+        //     }
 
 
-            setIsMillenniumConnected(false)
-        };
+        //     setIsMillenniumConnected(false)
+        // };
+        setIsMillenniumConnected(true)
+
     };
 
     useEffect(() => { EstablishConnection() }, []);
 
-    const IncrementDownloadCount = () => {
-        fetch(`https://steambrew.app/api/v2/download`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                owner: json?.data?.github?.owner,
-                repo: json?.data?.github?.repo,
-            }),
-        })
-    }
-
     const InstallTheme = () => {
-        setTimeout(() => {
-            millenniumIPC.send(JSON.stringify({ 
-                type: 'installTheme', 
-                data: { 
-                    repo: json?.data?.github?.repo, 
-                    owner: json?.data?.github?.owner 
-                } 
-            }));
-        }, 2000)
-
-        return new Promise((resolve, reject) => {
-            millenniumIPC.addEventListener('message', (event) => {
-                const data = JSON.parse(event.data);
-
-                if (data.type === 'installTheme') {
-                    if (data.data) {
-                        resolve(true);
-                        IncrementDownloadCount();
-                    } else {
-                        reject(false);
-                    }
-                    GetThemeStatus(millenniumIPC);
-                }
-            });
-        });
+        console.log(json)
+        window.open(API_URL + json.downloadUrl, '_blank');
     }
 
     const startDownload = () => {
-        toast.promise(InstallTheme(), {
-            pending: `Downloading and Installing ${json.name}. This may take a moment...`,
-            success: `Successfully installed!`,
-            error: `Failed to install ${json.name}`,   
+
+        InstallTheme()
+
+        toast.info(
+            <div>
+                To install this plugin extract it to your plugins folder. <br/>
+                For most users this is located at: <br/>
+                <code>C:\Program Files (x86)\Steam\plugins</code> &nbsp;
+            </div>, 
+        {
+            position: "bottom-right",
+            autoClose: 15000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
         });
     }
 
@@ -229,7 +214,6 @@ export default function Home({ json, markdown, isSteamClient })
           {!isSteamClient && <RenderHeader/>}
           <section id="main-page-content">
           <section id="addon-details" className="page-section">
-          <div className="caution-tape">This page is under construction, and does NOT currently function!</div>
           <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -264,20 +248,26 @@ export default function Home({ json, markdown, isSteamClient })
                       <section id="addon-actions">
                       <div className="btn-container direction-column">
                           <div className='wrap-buttons'>
-                          {isMillenniumConnected && (
-
-                            !isThemeInstalled ? 
-                                <a onClick={_ => startDownload()} className="btn btn-primary" id='download-btn'>
-                                    <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVR4nO2UOwqAMBBE3zWsLCxsLLSw8vYGPYSghYVgIR4hErAQ/58EQfNgIBCYIRN24U9kgBwlTATImWzAAmkr+l5F1Yrplso7ATHQnTDvgeTuKyKg3TFXdyEP8YF6xbwBAjThAsXEXP2Ph2YcIB+3qjpb9CMuDJY8kDAdkBoo4CUG+aZ0PJTVTQsAAAAASUVORK5CYII="/>
-                                    <span draggable>Install</span>
-                                </a>  
+                          {
+                            json?.hasValidBuild ?
+                            <a onClick={_ => startDownload()} className="btn btn-primary" id='download-btn'>
+                                <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVR4nO2UOwqAMBBE3zWsLCxsLLSw8vYGPYSghYVgIR4hErAQ/58EQfNgIBCYIRN24U9kgBwlTATImWzAAmkr+l5F1Yrplso7ATHQnTDvgeTuKyKg3TFXdyEP8YF6xbwBAjThAsXEXP2Ph2YcIB+3qjpb9CMuDJY8kDAdkBoo4CUG+aZ0PJTVTQsAAAAASUVORK5CYII="/>
+                                <span draggable>Download</span>
+                            </a>  
                             :
-                            <a onClick={_ => startUninstall()} className="btn btn-primary" id='uninstall-btn'>
-                                <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
-                                    <path d="M 24 4 C 20.491685 4 17.570396 6.6214322 17.080078 10 L 6.5 10 A 1.50015 1.50015 0 1 0 6.5 13 L 8.6367188 13 L 11.15625 39.029297 C 11.43025 41.862297 13.785813 44 16.632812 44 L 31.367188 44 C 34.214187 44 36.56875 41.862297 36.84375 39.029297 L 39.363281 13 L 41.5 13 A 1.50015 1.50015 0 1 0 41.5 10 L 30.919922 10 C 30.429604 6.6214322 27.508315 4 24 4 z M 24 7 C 25.879156 7 27.420767 8.2681608 27.861328 10 L 20.138672 10 C 20.579233 8.2681608 22.120844 7 24 7 z M 19.5 18 C 20.328 18 21 18.671 21 19.5 L 21 34.5 C 21 35.329 20.328 36 19.5 36 C 18.672 36 18 35.329 18 34.5 L 18 19.5 C 18 18.671 18.672 18 19.5 18 z M 28.5 18 C 29.328 18 30 18.671 30 19.5 L 30 34.5 C 30 35.329 29.328 36 28.5 36 C 27.672 36 27 35.329 27 34.5 L 27 19.5 C 27 18.671 27.672 18 28.5 18 z"></path>
-                                </svg>
-                                <span draggable>Uninstall</span>
-                            </a>)  
+                            <>
+                                <a data-tooltip-id="not-available-tooltip" className="btn btn-primary not-available" id='download-btn'>
+                                    <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADQUlEQVR4nO2az0tUURTHP5QVqDlW46KC+gNatKll/g+VpBLRNpXauenXojELgnJXLSQkolIqN62KrEVpP5dWtCqylAo1ikQw48J5cTi8cd6bue+9WcwXLowz95zzvtx7zz3n+4QaaqghTbQAbUAfMAI8Bl7JcJ+H5bf9QJ4qQzPQA0wAf4HliMPNHQe6gVzWBPqB+RgPX2zMyUrl0iZxEJgu8lCfgBvACeAQsA9oB44BBeCOPHiY7VegMw0CjcD1kAf4BpwHdkT0UwfsAS4DCyH+hoCGJA/ySxPwJ9BbYdAtwEVg0fh+ITG9wjl8awI9ALZ6jLELeGdiTPok0xiyEueAVSSTQGZMrOdAvQ/n9ky4rZQE1gKjRZLANR/Zya5EWiRmzN8d5TpvAr4oR4+A1fjHGuCeeej7wEZzZqZl68VGv8lOPg/2SisxKt877DbZzF2asdBsLq3eDEgEGDAVQKzbv0cZf5fMlcZ2WhcydzPwR83rihNoQhm6GzuLldC4quY+IyJaTBUbtexIioRDq5q/FLUFaFNGH8meRLAV9Zl1/UxJ9CkDV8VmTSLAXWXrquiSGFEGrhSvBhL2OrhNBDxRBq6fqAYSSD8T+HBtc0m8UQZ7SSfFRkG78vM6LpEDVUIC6TRjEdFb6yjZbieNw3G31nAFtU1SJBxOK5+3iICCMnBCQTWQcLip/J4h5oU4J0JB1iQcPivf7ryURF7KgMDIqR1Zk9hpSpRNUQ3HleGVjEk4XFD+n1JmGb9QpKlKIsWGoVF0syDGEWIgZ4o0pztlsRIOJ1WM2XJkVV08LorulDaJbcCvuNkqTHyYUk4+iCCQxnZCdLOHRhcuW+TuLCHRJLUSDpdMrHLLpf8YMg7TIHHcxBr04bRBBGW7Mhvwj7qQlZjwJZkGffykCfBedCdf2C7FoI4xmcQrurwIyssmmw1UKN6tlxT7O2QlEnvPWC+Csj0vCyLZtEaszYKyw93YP0L8DfrcTiuhw+jCesxLij4r7Wm7qB6unzglVaxO63pM+chOcZGTkr/Y+8A4Y1Yuu6a0SVhC3aIA6qq51FiSArAr69fTYchLr1AQyWZM/cPAmHxXkDmRS/EaaqiBivEPQsfo+NRUoKsAAAAASUVORK5CYII=" alt="cancel-2"/>
+                                    <span draggable>Not Available</span>
+                                </a>
+                                <Tooltip id="not-available-tooltip" effect="solid" place="bottom-start" type="error" className="tooltip">
+                                    <h3>Whoops!</h3>
+                                    <hr></hr>
+                                    <span>It appears that Millennium doesn't have any builds for this plugin.</span>
+                                    <br></br>
+                                    <span>Check back later or contact the developer for more information.</span>
+                                </Tooltip>
+                            </>
                           }
                           <a rel="noreferrer noopener" target="_blank" href={`https://github.com/${json?.repoOwner}/${json?.repoName}/`} className="btn btn-secondary" id="view-source">
                               <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
@@ -286,6 +276,13 @@ export default function Home({ json, markdown, isSteamClient })
                               <span>View Source</span>
                           </a>
                           </div>
+                          <div data-tooltip-id="verified-plugin-tooltip" className='verified-plugin'>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABBklEQVR4nO3WP2pCQRDH8XkXEFKlsPMM4kx23kE8gaQPpEz6NELAg4hg46wWFjapLTxI2g0WERQS/z10Bn4f2OY1y5dh9y0RAAAAxPNk3E+Zh/Ws26GoksmrZinblbIsKHqEbpfJmKJHpCwbMWlTJGr8gggPFJNwQjEJJzAJLzAJLzCJU9RzHqjxd8o86U17LYr6ANQs690GJqumY272ik0m73sbNRhz26d4oUqNPw9ivupl/RDvYJdmY+57O5VmYnxcseW6GB8RV8b4irgwxmfEmTG+I06MiRHxq1CVTEaHP81k8hYn4p/JxIs4EhMr4o+YmBH7Z+ZZjT/Y+HH3HQAAAOgufgB9P/OIv/0V+gAAAABJRU5ErkJggg==" alt="checkmark--v1"/>
+                            <span>Verified by Millennium developers</span>
+                          </div>
+                            <Tooltip id="verified-plugin-tooltip" effect="solid" place="bottom-start" type="error" className="tooltip">
+                                <span>This plugin is continuously audited to ensure its safety.</span>
+                            </Tooltip>
                           {json?.skin_data?.funding?.kofi && <a href={`https://ko-fi.com/${json?.skin_data?.funding?.kofi}`} className="btn btn-primary" id="kofi-btn">
                             <img id="kofi-icon" src={"https://raw.githubusercontent.com/DeybisMelendez/godot-kofi-button/master/addons/kofi-donation-button/logo.png"}></img>
                             <span draggable="true">Support me on Ko-fi</span>
@@ -295,7 +292,7 @@ export default function Home({ json, markdown, isSteamClient })
 
                       <section id="about-addon">
                       <span className="addon-metadata-row">
-                          <strong>Version: </strong> {json?.version ?? "1.0.0"} </span>
+                          <strong>Size: </strong> {FormatBytes(json?.fileSize)} </span>
                       <span className="addon-metadata-row">
                           <strong>Downloads: </strong> {FormatNumber(json?.downloadCount)} </span>
                       <span className="addon-metadata-row">

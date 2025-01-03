@@ -20,8 +20,12 @@ const { cache_handler, reset } = require("./middleware/cache.js")
 const { rate_limit } = require("./middleware/rate-limiter.js")
 
 admin.initializeApp({ 
-    credential: admin.credential.cert(require('./credentials/cert.json'))
+    credential: admin.credential.cert(require('./credentials/cert.json')),
+    storageBucket: "millennium-d9ce0.appspot.com"
 });
+
+const bucket = admin.storage().bucket();
+const db = admin.firestore();
 
 const { check_updates } = require("./v2/check-updates.js")
 const { get_details } = require('./v2/get-details.js')
@@ -30,8 +34,10 @@ const { get_update_v2 } = require("./v2/get-update.js")
 const { get_update } = require("./v2/get-update.js")
 const { download } = require("./v2/download.js")
 
-const { RetreivePluginList } = require("./plugin/GetPluginList.js")
+const { RetrievePluginList } = require("./plugin/GetPluginList.js")
 const { GetPluginData } = require("./plugin/GetPluginData.js")
+const { GetDownloadInfo } = require("./plugin/GetDownloadInfo.js")
+const { GetPluginMetadata } = require("./plugin/GetPluginMetadata.js")
 
 millennium.get("/api/updater", cache_handler, (_, res) => {
     res.json({
@@ -95,20 +101,119 @@ millennium.get("/api/cache/reset", cache_handler, (_, res) => {
 /**
  * Support for plugins
  */
+const FetchPlugins = async () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const pluginList = await RetrievePluginList();
+
+            // Fetch all plugin metadata, data, and download counts in parallel
+            const [metadata, pluginData] = await Promise.all([
+                GetPluginMetadata(),
+                GetPluginData(pluginList)
+            ]);
+
+            // Fetch all download counts in one Firestore call
+            const downloadDocs = await db.collection('downloads').get();
+            const downloadCounts = {};
+            downloadDocs.forEach(doc => {
+                downloadCounts[doc.id] = doc.data().downloadCount || 0;
+            });
+
+
+            // Process the plugin data
+            for (const key in pluginData) {
+                const data = metadata.find(meta => meta.commitId === pluginData[key].id);
+                if (data) {
+                    const pluginId = data.id.substring(0, 12); // Shortened ID
+                    const initCommitId = data.id; // Full ID
+
+                    pluginData[key].downloadCount = downloadCounts[initCommitId] ?? 0;
+                    pluginData[key].id = pluginId;
+                    pluginData[key].initCommitId = initCommitId;
+                }
+            }
+
+            resolve(pluginData);
+        } 
+        catch (error) {
+            console.error("An error occurred while processing plugins:", error);
+            reject(error);
+        }
+    });
+};
 
 millennium.get("/api/v1/plugins", cache_handler, async (req, res) => {  
-    const pluginList = await RetreivePluginList()
-    const pluginData = await GetPluginData(pluginList)
-
-    res.json(pluginData)
+    res.json(await FetchPlugins())
 })
 
-millennium.get("/api/v1/plugins/:id", cache_handler, async (req, res) => {
-    const pluginList = await RetreivePluginList()
-    const pluginData = await GetPluginData(pluginList)
+millennium.get("/api/v1/plugin/:id", cache_handler, async (req, res) => {
+    const plugin = (await FetchPlugins()).find(plugin => plugin.id === req.params.id)
 
-    const plugin = pluginData.find(plugin => plugin.id === req.params.id)
+    try {
+        const pluginBuild = bucket.file(`plugins/${plugin.initCommitId}.zip`);
+        const [ exists ] = await pluginBuild.exists()
+    
+        if (exists) {
+            const [ metadata ] = await pluginBuild.getMetadata()
+            plugin.commitDate = new Date(metadata.updated) > new Date(metadata.timeCreated) ? metadata.updated : metadata.timeCreated;
+            plugin.fileSize = Number(metadata.size);
+            plugin.hasValidBuild = true;
+        } 
+        else {
+            console.warn(`Plugin ${plugin.id} does not have a build available.`)
+            plugin.hasValidBuild = false;
+        }
+    }
+    catch (error) {
+        console.error("An error occurred while checking plugin build:", error);
+        plugin.hasValidBuild = false;
+    }
+
+    plugin.downloadUrl = `/api/v1/plugins/download/?id=${plugin?.initCommitId}&n=${plugin?.pluginJson?.name}.zip`;
+
+    console.log("Sending plugin", plugin)
     res.json(plugin)
 })
+
+millennium.get('/api/v1/plugins/download', async (req, res) => {
+    console.log("Getting download info for", req.query.id);
+    const fileName = req.query.id; 
+
+    console.log(req.query)
+    const downloadFileName = req.query.n;
+
+    console.log("using filename", downloadFileName);
+    const file = bucket.file(`plugins/${fileName}.zip`);
+
+    // Increment the download count in Firestore
+    try {
+        
+        const docRef = db.collection('downloads').doc(fileName);
+        await docRef.set(
+            { downloadCount: admin?.firestore?.FieldValue?.increment(1) ?? 1 },
+            { merge: true }
+        );
+        console.log(`Download count incremented for ${fileName}`);
+    } 
+    catch (err) {
+        console.error('Error updating download count:', err);
+        // Continue processing the request even if updating count fails
+    }
+
+    file.createReadStream()
+    .on('error', (err) => {
+        console.error('Error streaming file:', err);
+        res.status(500).send('Error streaming file');
+    })
+    .on('response', (response) => {
+        res.setHeader('Content-Type', response.headers['content-type']);
+        res.setHeader('Content-Disposition', `attachment; filename="${downloadFileName}"`);
+    })
+    .pipe(res)
+    .on('finish', () => {
+        console.log(`File ${fileName} streamed successfully!`);
+    });
+});
+
 
 exports.api = functions.https.onRequest(millennium)

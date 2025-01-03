@@ -11,6 +11,7 @@ import Select from 'react-select';
 import { useState, useEffect } from 'react';
 import CreateCard from '../app/components/plugins/CardComponent';
 // const inter = Inter({ subsets: ["latin"] });
+import { API_URL } from '../app/utils/globals';
 
 export async function getServerSideProps(context) {
     const { req } = context;
@@ -30,7 +31,7 @@ function PluginLibrary({ isSteamClient }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/v1/plugins');
+                const response = await fetch(API_URL + '/api/v1/plugins');
                 let result = await response.json();
 
 				const buffer = ["All"];
@@ -126,7 +127,6 @@ function PluginLibrary({ isSteamClient }) {
 			{!isSteamClient ? RenderHeader() : <></>}
 			<main id="main-page-content">
 			<section id="addons-header" className="page-section content-header">
-				<div className="caution-tape">This page is under construction, and does NOT currently function!</div>
 				<div className="page-section-inner flex-container justify-between align-center" id="theme-header">
 				<div className="header-left">
 					<h1 className="title">Let's Get Plugging!</h1>

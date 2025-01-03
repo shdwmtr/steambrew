@@ -20,6 +20,14 @@ export const FormatNumber = (number) => {
     return number >= 1000 ? `${(number / 1000).toFixed(1)}K` : number
 }
 
+export const FormatBytes = (bytes) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return '0 Byte';
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
 export const DateToString = (dateString) => {
     return new Date(new Date(dateString).getTime() - new Date(dateString).getTimezoneOffset() * 60000).toDateString();
 }

@@ -41,6 +41,11 @@ const GetPluginData = (pluginList) => {
                     repoOwner: owner {
                         login
                     }
+                    commitId: object(expression: "${repo.commit}") {
+                        ... on Commit {
+                            oid
+                        }
+                    }
                 }
             `).join('\n')}
             }
@@ -49,7 +54,7 @@ const GetPluginData = (pluginList) => {
         const response = await fetch('https://api.github.com/graphql', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.BEARER}`,
+                'Authorization': process.env.BEARER,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ query })
@@ -64,9 +69,6 @@ const GetPluginData = (pluginList) => {
         const jsonResponse = Object.values(data.data).map(repository => repository).map(repo => {
             const pluginJson = JSON.parse(repo.pluginJson.text);
 
-            const id = HashInformation(repo.repoOwner.login, repo.repoName);
-            mutablePluginData[id] = mutablePluginData?.[id] != undefined ? mutablePluginData[id] : 0;
-
             return {
                 pluginJson: pluginJson,
                 usesBackend: pluginJson?.useBackend === true || pluginJson?.useBackend === undefined,
@@ -76,8 +78,7 @@ const GetPluginData = (pluginList) => {
                 commitDate: repo.commit.committedDate,
                 repoName: repo.repoName,
                 repoOwner: repo.repoOwner.login,
-                id: id,
-                downloadCount: mutablePluginData[id]
+                id: repo.commitId.oid
             }
         });
         

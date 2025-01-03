@@ -10,6 +10,7 @@ import { MarkdownToHtml } from '../app/utils/MarkDownConvert'
 import { DateToString, FormatNumber } from '../app/utils/Util'
 import '../css/index.css'
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '@/app/utils/globals';
 
 function HeadProp({ json }) {
     return (
@@ -39,11 +40,11 @@ function HeadProp({ json }) {
 
 export const getServerSideProps = (async (context) => {
 
-    const res = await fetch(`https://steambrew.app/api/v2/details/` + context.query.id)
+    const res = await fetch(`${API_URL}/api/v2/details/` + context.query.id)
     const json = await res.json()
 
     const readme = json?.read_me
-    const markdown = await MarkdownToHtml(readme);
+    const markdown = await MarkdownToHtml(readme, json?.data?.github?.owner, json?.data?.github?.repo);
 
     const isSteamClient = /Valve Steam Client/.test(context.req.headers['user-agent']);
 
@@ -62,12 +63,19 @@ export default function Home({ json, markdown, isSteamClient })
 
     const GetThemeStatus = (millenniumIPC) => {
         millenniumIPC.addEventListener('message', (event) => {
-            const data = JSON.parse(event.data);
-
-            console.log(`theme is installed ? ${data.data}`);
-
-            if (data.type === 'checkInstall') {
-                setIsThemeInstalled(data.data);
+            try {
+                console.log(event.data);
+                const data = JSON.parse(event.data);
+    
+                console.log(`theme is installed ? ${data.data}`);
+    
+                if (data.type === 'checkInstall') {
+                    setIsThemeInstalled(data.data);
+                }
+            }
+            catch (err) {
+                console.log(err);
+                setIsThemeInstalled(false);
             }
         })
         millenniumIPC.send(JSON.stringify({ type: 'checkInstall', data: { 
