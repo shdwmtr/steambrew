@@ -1,7 +1,7 @@
 # About Millennium
 
 ## What is Millennium?
-Millennium is an open-source low-code modding framework to create, manage and use themes/plugins for the desktop Steam Client without any low-level internal interaction or overhead. 
+Millennium, officially launched on April of 2023, is an open-source low-code modding framework to create, manage and use themes/plugins for the desktop Steam Client without any low-level internal interaction or overhead. 
 
 ## How does Millennium work?
 Millennium is based off vulnerabilities inside the Steam Client that allow its functioning.

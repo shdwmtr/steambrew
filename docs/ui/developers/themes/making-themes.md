@@ -26,9 +26,9 @@ Learn how to implement different features in your theme
 
 Here's an example theme path: `%SteamPath%/steamui/skins/skinName/skin.json`
 
-in this case we use "skinName" as an example skin name (this is not the actual name end-users see in Millennium, simply a pseudo name for your theme). keep in mind the folder name of your skin MUST be URL-encoded and CANNOT contain any invalid characters. The accepted range is [0-9, A-Z, a-z] any other characters are deemed illegal and your skin may not function as it should.
+in this case we use "skinName" as an example skin name (this is not the actual name end-users see in Millennium, simply a ID for your theme). keep in mind the folder name of your skin MUST be URL-encoded and CANNOT contain any invalid characters. The accepted range is [0-9, A-Z, a-z] any other characters are deemed illegal and your skin may not function as it should.
 
-Here's an [example `skin.json`](https://github.com/SteamClientHomebrew/ThemeTemplate/blob/master/skin.json) 
+Here's an [example `skin.json`](https://github.com/shdwmtr/millennium/blob/main/examples/theme/skin.json) 
 
 ## Index of property nodes
 

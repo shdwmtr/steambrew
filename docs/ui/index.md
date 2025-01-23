@@ -4,9 +4,14 @@ displayed_sidebar: homeSidebar
 sidebar_collapsed: true
 ---
 
-# Millennium Documentation
+# Millennium
 
-Welcome to the Millennium Documentation. Here you'll find a series of user guides, developer guides, as well as references for both our plugin API, and some of Steam's internals.
+![alt text](/img/intro.gif)
+
+
+
+
+Welcome to the Millennium documentation, let's get nerdy! Here you'll find a series of user guides, developer guides, as well as references for both our plugin API, and some of Steam's internals.
 
 ## Sections
 
