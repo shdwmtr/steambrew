@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Steam Homebrew',
   tagline: 'Creating, developing, and maintaining open source addons for the Steam® Client',
-  favicon: 'static/img/icon.png',
+  favicon: '/img/icon.png',
   url: 'https://docs.steambrew.app',
   baseUrl: '/',
   organizationName: 'SteamClientHomebrew',
@@ -56,7 +56,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'static/img/icon.png',
+      image: '/img/icon.png',
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,
@@ -66,7 +66,7 @@ const config = {
         title: 'Steam Homebrew.',
         logo: {
           alt: 'Steam Homebrew Logo',
-          src: 'img/icon.png',
+          src: '/img/icon.png',
         },
         items: [
           {

@@ -17,7 +17,7 @@ This installer is entirely open source and we encourage the community audit the 
 ```powershell
 iwr -useb "https://steambrew.app/install.ps1" | iex
 ```
-![alt text](/img/install.gif)
+![Installing Millennium Preview](/img/install.gif)
 
 ### Manual
 
