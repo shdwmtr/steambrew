@@ -4,7 +4,7 @@
     font-weight: 400;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: rgb(0, 0, 0) !important;
+    background-color: #0f0f0f !important;
     font-synthesis: none;
     text-rendering: optimizelegibility;
 }
@@ -2817,7 +2817,7 @@ textarea.text-input {
 }
 
 .page-section.content-header {
-    background: rgb(0, 0, 0) !important;
+    background: #0f0f0f !important;
 }
 
 .search,
@@ -2861,7 +2861,7 @@ header#navbar {
 }
 
 footer#section-footer {
-    background: rgb(12, 12, 12) !important;
+    background: #0f0f0f !important;
 }
 
 .markdown-body details {
@@ -3199,7 +3199,7 @@ p.text-center.title-description {
 a#kofi-btn {
     border-radius: 6px !important;
     border: 1px solid rgb(36, 36, 36) !important;
-    background-color: rgb(10, 10, 10) !important;
+    background-color: rgb(17, 17, 17) !important;
     color: rgb(136, 136, 136) !important;
 }
 
@@ -3266,9 +3266,9 @@ body {
 }
 
 header#navbar {
-    background: rgba(0, 0, 0, 0.71) !important;
-    border-bottom: 1px solid rgb(24, 24, 24);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0) !important;
+    border-bottom: 1px solid #1f1f1f;
+    backdrop-filter: blur(17px);
 }
 
 a.navbar-logo-container {
@@ -3364,8 +3364,8 @@ button#hero-download-button {
 }
 
 footer#section-footer {
-    background: rgb(0, 0, 0) !important;
-    border-top: 1px solid rgb(24, 24, 24);
+    background: #0f0f0f !important;
+    border-top: 1px solid #1f1f1f;
 }
 
 .footer-copyright.text-center {
@@ -3408,11 +3408,11 @@ div#additional-feature-emotes {
 }
 
 .card {
-    border: 1px solid rgb(17, 17, 17);
+    border: 1px solid #2d2d2d;
 }
 
 .card-body {
-    background: rgb(17, 17, 17);
+    background: #1e1e1f;
 }
 
 span.addon-tag {
@@ -3420,12 +3420,15 @@ span.addon-tag {
 }
 
 .card-container .card:hover {
-    border: 1px solid rgb(149, 149, 149);
+    border: 1px solid rgb(77, 77, 77);
+    transform: translateY(-3px) !important;
 }
 
+.theme-tag,
+.react-select__control,
 input#addon-search {
-    background: rgb(10, 10, 10) !important;
-    border: 1px solid rgb(36, 36, 36) !important;
+    background: #1e1e1f !important;
+    border: 1px solid #2d2d2d !important;
 }
 
 header#navbar {
@@ -3510,7 +3513,7 @@ div#draggableFile {
 
 a#view-source {
     border: 1px solid rgb(36, 36, 36) !important;
-    background-color: rgb(10, 10, 10) !important;
+    background-color: rgb(17, 17, 17) !important;
 }
 
 #view-source:hover {
@@ -3601,7 +3604,7 @@ div#addon-likes {
 }
 
 .theme-tag {
-    background: rgb(17, 17, 17);
+    /* background: rgb(17, 17, 17); */
     padding: 0.5rem;
     border-radius: 6px;
     cursor: pointer;
@@ -3614,7 +3617,7 @@ div#addon-likes {
 .checkbox_icon__6T6ug {
     --checkbox-color: #8f8f8f;
     border: 1px solid rgb(143, 143, 143) !important;
-    background: rgb(10, 10, 10);
+    background: rgb(49, 49, 49);
     border-radius: 4px;
     display: inline-flex;
     align-items: center;
@@ -3663,9 +3666,8 @@ form.header-right.search-container {
 }
 
 .react-select__control {
-    border: medium !important;
+    /* border: medium !important; */
     font-size: 14px !important;
-    background: rgb(17, 17, 17) !important;
     border-radius: 8px !important;
 }
 
@@ -4227,4 +4229,27 @@ canvas {
 .markdown-body img {
     display: block;
     margin-top: 10px;
+}
+
+
+.page-section-inner.theme-view-panel.api-error {
+    height: calc(100vh - 344px);
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+}
+
+.api-error-container {
+    height: min-content;
+}
+
+.api-error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.addon-backdrop {
+    filter: blur(11px);
 }

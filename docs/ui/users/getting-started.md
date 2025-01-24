@@ -19,8 +19,7 @@ If you don't already have any themes, you'll need to install some. Head over to 
 
 
 :::info
-If you are using the Brave browser, you may have difficulties installing themes out of the box, specifically the website saying you're in preview mode when Steam is open. To fix this, open the Brave ad blocker, and apply the following setting.
-![alt text](Untitled.png)
+If you are using the Brave browser, you may have difficulties installing themes out of the box, specifically the website saying you're in preview mode when Steam is open. To fix this, open the Brave ad blocker, and "Allow all trackers & ads"
 
 You can alternatively disable the entire shield for the site.
 :::

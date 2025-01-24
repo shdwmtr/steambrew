@@ -25,7 +25,7 @@ module.exports = {
       {
         type: 'category',
         label: 'Development',
-        collapsed: false,
+        collapsed: true,
         link: {
           type: 'generated-index',
           description:

@@ -149,6 +149,11 @@ millennium.get("/api/v1/plugins", cache_handler, async (req, res) => {
 millennium.get("/api/v1/plugin/:id", cache_handler, async (req, res) => {
     const plugin = (await FetchPlugins()).find(plugin => plugin.id === req.params.id)
 
+    if (!plugin) { 
+        res.status(404).json({ error: 1 });
+        return;
+    }
+
     try {
         const pluginBuild = bucket.file(`plugins/${plugin.initCommitId}.zip`);
         const [ exists ] = await pluginBuild.exists()
@@ -170,8 +175,6 @@ millennium.get("/api/v1/plugin/:id", cache_handler, async (req, res) => {
     }
 
     plugin.downloadUrl = `/api/v1/plugins/download/?id=${plugin?.initCommitId}&n=${plugin?.pluginJson?.name}.zip`;
-
-    console.log("Sending plugin", plugin)
     res.json(plugin)
 })
 

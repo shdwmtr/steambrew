@@ -36,6 +36,5 @@ export async function MarkdownToHtml(markdown, owner, repo) {
         .use(rehypeStringify, { allowDangerousHtml: false })
         .process(markdown);
 
-    console.log(String(result))
     return String(result);
 }
