@@ -2909,10 +2909,6 @@ footer#section-footer {
     }
 }
 
-.featured span.addon-tag {
-    background-color: rgb(10, 10, 10) !important;
-}
-
 .downloadTag {
     position: absolute;
     right: 5px;
@@ -3416,7 +3412,7 @@ div#additional-feature-emotes {
 }
 
 span.addon-tag {
-    background: rgb(10, 10, 10) !important;
+    background: rgb(30, 30, 30) !important;
 }
 
 .card-container .card:hover {
