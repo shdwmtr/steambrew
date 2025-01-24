@@ -2487,8 +2487,6 @@ textarea.text-input {
     margin-bottom: 0px;
 }
 
-.markdown-body li {}
-
 .markdown-body li+li {
     margin-top: 0.25em;
 }
@@ -3571,7 +3569,7 @@ div#theme-header {
     line-height: 20px;
     letter-spacing: -.01em;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-top: 8px;
@@ -3799,8 +3797,6 @@ svg.nothing-here {
         background-color: rgb(169, 169, 169);
     }
 }
-
-.checkbox_input__ydSbd:focus-visible+.checkbox_icon__6T6ug {}
 
 .checkbox_input__ydSbd:focus-visible:not(:checked):not(:disabled)+.checkbox_icon__6T6ug {
     background-color: rgb(169, 169, 169);
