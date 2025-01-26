@@ -492,3 +492,29 @@ table {
 .alert.alert--info {
   background: #3c5062;
 }
+
+.menu__link--sublist-caret::before {
+  content: '';
+  min-width: 1.25rem;
+  background: var(--ifm-menu-link-sublist-icon);
+  filter: var(--ifm-menu-link-sublist-icon-filter);
+  height: 16px;
+  transform: rotate(180deg);
+  width: -5px;
+  transition: transform var(--ifm-transition-fast) linear;
+  margin-top: 2px;
+}
+
+.menu__list-item--collapsed .menu__link--sublist::after,
+.menu__list-item--collapsed .menu__caret::before {
+  transform: unset !important;
+}
+
+.menu__list-item--collapsed .menu__link--sublist::before,
+.menu__list-item--collapsed .menu__caret::before {
+  transform: rotateZ(90deg);
+}
+
+.menu__link--sublist-caret::after {
+  content: unset !important;
+}

@@ -22,6 +22,9 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  markdown: {
+    format: 'md',
+  },
 
   presets: [
     [
