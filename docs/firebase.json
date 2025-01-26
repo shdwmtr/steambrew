@@ -2,6 +2,7 @@
   "hosting": {
     "site": "steambrew-docs",
     "public": "build",
+    "predeploy": "npm run build",
     "ignore": [
       "firebase.json",
       "**/.*",
