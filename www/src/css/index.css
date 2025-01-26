@@ -4245,3 +4245,8 @@ canvas {
 .addon-backdrop {
     filter: blur(11px);
 }
+
+.sticky-container {
+    position: sticky;
+    top: 91px;
+}

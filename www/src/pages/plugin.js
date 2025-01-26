@@ -179,6 +179,7 @@ export default function Home({ pluginData, isSteamClient, apiError })
                 </div>
                 <div className="flex-container" id="addon-splitview-container">
                 <div className="addon-details-column" id="addon-details-right-column">
+                    <div className="sticky-container">
                     <div className="addon-details-segment" id="addon-details-column-actions">
                         <a className="link_link__hbWKh link_secondary__F1rqx" href="/plugins"><small>← Back to Plugins</small></a>
                         <a target="_blank" href={`https://github.com/${pluginData?.repoOwner}`} className="addon-author-container">
@@ -284,6 +285,7 @@ export default function Home({ pluginData, isSteamClient, apiError })
                             </section>
                         </div> : <></>
                     }
+                    </div>
                     </div>
                     <div className="addon-details-column" id="addon-details-left-column">
                         <article className="addon-details-segment markdown-readme-content">
