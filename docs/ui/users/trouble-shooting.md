@@ -24,7 +24,7 @@ description: When things don't go as expected.
 
   **Example:**
 
-  ![alt text](sharedjscontext.png)
+  ![Finding an error](https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/static/error-report.png)
 
 - #### DLL Error / Windows Dependency Error Message Boxes
   Ensure you're running Windows 10 or greater, support for Windows 7 and 8 has been dropped. 

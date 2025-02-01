@@ -2,7 +2,7 @@
 
 Once Millennium is installed, you can find its related settings within the Steam user interface. 
 
-![alt text](image.png)
+![Millennium Settings Preview](https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/static/settings.png)
 
 
 # Themes
