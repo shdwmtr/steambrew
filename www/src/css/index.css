@@ -1655,7 +1655,9 @@ body {
     color: var(--text-light);
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
 }
 
 .card-subtext {
@@ -4249,4 +4251,17 @@ canvas {
 .sticky-container {
     position: sticky;
     top: 91px;
+}
+
+.markdown-body code,
+.markdown-body pre {
+    background: #202020 !important;
+}
+
+.markdown-body pre {
+    font-size: 14px;
+}
+
+.markdown-body pre code {
+    padding: 0 !important;
 }
