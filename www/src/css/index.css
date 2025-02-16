@@ -4265,3 +4265,7 @@ canvas {
 .markdown-body pre code {
     padding: 0 !important;
 }
+
+.fancybox__container {
+    --fancybox-zIndex: 99999999 !important;
+}
