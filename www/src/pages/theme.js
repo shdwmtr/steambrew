@@ -12,6 +12,9 @@ import '../css/index.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from '@/app/utils/globals';
 
+import { Fancybox } from '@fancyapps/ui';
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
 function HeadProp({ json }) {
     return (
         <Head>
@@ -136,7 +139,19 @@ export default function Home({ json, markdown, isSteamClient })
         };
     };
 
-    useEffect(() => { EstablishConnection() }, []);
+    useEffect(() => { 
+        Fancybox.bind("[data-fancybox]", {
+			Images: {
+                Panzoom: {
+                    maxScale: 2
+                }
+            },
+            Thumbs: {
+                type: 'classic'
+            }
+		})
+        EstablishConnection();
+    }, []);
 
     const IncrementDownloadCount = () => {
         fetch(`https://steambrew.app/api/v2/download`, {
