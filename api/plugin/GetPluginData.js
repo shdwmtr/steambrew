@@ -27,6 +27,11 @@ const GetPluginData = (pluginList) => {
                             text
                         }
                     }
+                    pluginReadme: object(expression: "${repo.commit}:PLUGIN.md") {
+                        ... on Blob {
+                            text
+                        }
+                    }
                     pluginJson: object(expression: "${repo.commit}:plugin.json") {
                         ... on Blob {
                             text
@@ -72,7 +77,7 @@ const GetPluginData = (pluginList) => {
             return {
                 pluginJson: pluginJson,
                 usesBackend: pluginJson?.useBackend === true || pluginJson?.useBackend === undefined,
-                readme: repo.readme.text,
+                readme: repo?.pluginReadme?.text || repo.readme.text,
                 stargazerCount: repo.stargazerCount,
                 diskUsage: FormatSize(repo.diskUsage),
                 commitDate: repo.commit.committedDate,
