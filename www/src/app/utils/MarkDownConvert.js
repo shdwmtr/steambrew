@@ -27,14 +27,13 @@ function addPathToImgSrc(options) {
                             href: node.properties.src,
                             target: '_blank',
                             rel: 'noreferrer',
-                            'data-fancybox': 'gallery',
                             'data-caption': node.properties.alt,
                         },
                         children: [{ ...node }]
                     };
 
                     // Remove data-fancybox attribute if image is too small like with badges
-                    node.properties.onload = `if(this.naturalWidth < 100 || this.naturalHeight < 100) { this.parentElement.removeAttribute('data-fancybox'); }`;
+                    node.properties.onload = `if(this.naturalWidth >= 100 && this.naturalHeight >= 100) { this.parentElement.setAttribute('data-fancybox', 'gallery'); }`;
 
                     parent.children[index] = anchor;
                 }
