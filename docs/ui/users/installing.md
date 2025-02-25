@@ -36,6 +36,8 @@ Like to see Millennium apart of your distributions user package repository? Anyo
 
 This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.sh). 
 
+Steam Snap & Steam Flatpak are Unsupported
+
 ```bash
 curl -fsSL "https://raw.githubusercontent.com/SteamClientHomebrew/Millennium/main/scripts/install.sh" | sh
 ```
