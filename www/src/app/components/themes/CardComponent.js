@@ -28,7 +28,7 @@ function CreateCard(item) {
                             currentTarget.src='https://i.imgur.com/Ritvk0y.png';
                             currentTarget.className = "card-image no-image" 
                         }} 
-                        src={data?.header_image == "[NO-IMAGE]" ? 'https://i.imgur.com/Ritvk0y.png' : data?.header_image} alt="Thumbnail" data-holder-rendered="true">       
+                        src={data?.header_image == "[NO-IMAGE]" ? 'https://i.imgur.com/Ritvk0y.png' : data?.header_image} data-holder-rendered="true">       
                     </img>
                     <div className="card-body">
                     <h3 className="card-title">{data.name}</h3>

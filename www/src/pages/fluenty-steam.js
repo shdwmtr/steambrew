@@ -56,7 +56,7 @@ export default function FluentyViewModal({ isSteamClient }) {
                 <meta property="twitter:site" content="Millennium"/>
                 <meta name="theme-color" content="#3a71c1"/>
 
-                <meta name="author" content={"ShadowMonster, Hexality, Shiina" ?? "Anonymous"}/>
+                <meta name="author" content={"Millennium"}/>
           </Head>
             <div className="os-resize-observer-host observed">
             <div className="os-resize-observer"></div>
@@ -79,8 +79,8 @@ export default function FluentyViewModal({ isSteamClient }) {
                         <div className="addon-details-segment" id="addon-details-column-actions">
                             <a className="link_link__hbWKh link_secondary__F1rqx" href="/themes"><small>← Back to Themes</small></a>
                             <a target="_blank" className="addon-author-container">
-                                <img loading="lazy" src={`https://i.imgur.com/xSqPofh.png`}/>
-                                <h5>Shadow, Hexality</h5>
+                                <img loading="lazy" src={`https://cdn.discordapp.com/icons/1102739071085846623/03b125b1961432a1a1215da140663f30.webp`}/>
+                                <h5>Millennium</h5>
                             </a>
                             <h1 className="title">Fluenty</h1>
                             <div className="title-description theme-desc">
@@ -108,13 +108,9 @@ export default function FluentyViewModal({ isSteamClient }) {
 
                             <section id="about-addon">
                             <span className="addon-metadata-row">
-                                <strong>Version: </strong> {fluenty?.version} </span>
-                            <span className="addon-metadata-row">
                                 <strong>Downloads: </strong> {fluenty.downloads} </span>
                             <span className="addon-metadata-row">
-                                <strong>Added: </strong>November 24th 2023</span>
-                            <span className="addon-metadata-row">
-                                <strong>Last Updated: </strong>Unknown </span>
+                                <strong>Released: </strong>November 24th 2023</span>
                             <span className="addon-metadata-row">
                                 <strong>Id: </strong>fluenty-steam</span>
    
@@ -132,9 +128,9 @@ export default function FluentyViewModal({ isSteamClient }) {
                         <div className="addon-details-segment" id="addon-details-column-server">
                             <section id="addon-server">
                             <div className="flex-container align-center">
-                                <img loading="lazy" src={"https://cdn.discordapp.com/icons/1102739071085846623/e1c7dde389cfbe90bf1a2b948e00d162.webp"}/>
+                                <img loading="lazy" src={"https://cdn.discordapp.com/icons/1102739071085846623/03b125b1961432a1a1215da140663f30.webp"}/>
                                 <div className="flex-container justify-center direction-column">
-                                <h5>Millennium for Steam</h5>
+                                <h5>Millennium</h5>
                                 <p>Support Server</p>
                                 </div>
                             </div>
@@ -168,8 +164,22 @@ export default function FluentyViewModal({ isSteamClient }) {
                             <article className="addon-details-segment markdown-readme-content">
                                 <div className="markdown-body">
                                     <div >
-                                        <h1>Fluenty</h1>
+                                        <h1>Fluenty, made with ❤️ by Millennium</h1>
                                         <p>Inspired by the Microsft Store Fluent Design template launched with Windows 11</p>
+
+                                        <p>You may ask why this theme costs money, and isn't free like the others. 
+                                            To deliver the best user experience, with fast and secure servers (including this website) we need funding somehow. 
+                                            That's why we made this theme; to give you something in return for supporting us, without forcing ads or other annoying funding methods.</p>
+
+                                        <p>
+                                            With that said, keep in mind that even if updates are sometimes infrequent, we are always working on something new and exciting, even if it may not be Fluenty directly.
+                                            We are a limited team, and we are doing our best to balance our time between Millennium, Fluenty, and our personal lives.
+                                        </p>
+
+                                        <p>
+                                            Thanks for understanding, and we hope you enjoy the theme ❤️
+                                        </p>
+
                                         <a href="https://i.imgur.com/ca6ncMp.gif" target="_blank" data-fancybox>
                                             <img src="https://i.imgur.com/ca6ncMp.gif" alt="Steam Skin"/>
                                         </a>
@@ -202,7 +212,7 @@ export default function FluentyViewModal({ isSteamClient }) {
                                         <p>Fluenty is very close to being finished, however it's still in development and not everything is perfect. expect bugs and report them in the discord server if you encounter any!</p>
                                     <br />
                                     <br />
-                                    <b>Copyright Project-Millennium © 2024</b>
+                                    <b>Copyright Project-Millennium © {new Date().getFullYear()}</b>
                                 </div>
                             </article>
                         </div>

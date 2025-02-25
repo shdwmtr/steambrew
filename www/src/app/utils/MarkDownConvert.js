@@ -9,10 +9,18 @@ import remarkGfm from 'remark-gfm';
 import { visit } from 'unist-util-visit';
 import rehypeSanitize from 'rehype-sanitize'
 import { defaultSchema } from 'hast-util-sanitize'
+import rehypeRaw from 'rehype-raw';
+
+const sanitizeSchema = {
+    ...defaultSchema,
+    tagNames: defaultSchema.tagNames.filter(tag => tag !== 'script'), // Remove <script> from allowed tags
+}
 
 function addPathToImgSrc(options) {
     return (tree) => {
+
         visit(tree, 'element', (node, index, parent) => {
+            console.log(node)
             if (node.tagName === 'img' && node.properties && node.properties.src) {
                 // Check if the src is already a full URL
                 if (!node.properties.src.startsWith('http')) {
@@ -34,7 +42,6 @@ function addPathToImgSrc(options) {
 
                     // Remove data-fancybox attribute if image is too small like with badges
                     node.properties.onload = `if(this.naturalWidth >= 100 && this.naturalHeight >= 100) { this.parentElement.setAttribute('data-fancybox', 'gallery'); }`;
-
                     parent.children[index] = anchor;
                 }
             }
@@ -43,13 +50,14 @@ function addPathToImgSrc(options) {
 }
 
 export async function MarkdownToHtml(markdown, owner, repo) {
-
     const result = await unified()
         .use(remarkParse)
         .use(remarkGfm)
-        .use(remarkRehype, { allowDangerousHtml: false })
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeSanitize, sanitizeSchema)
         .use(addPathToImgSrc, { owner, repo })
-        .use(rehypeStringify, { allowDangerousHtml: false })
+        .use(rehypeStringify, { allowDangerousHtml: true })
         .process(markdown);
 
     return String(result);

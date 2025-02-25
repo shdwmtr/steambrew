@@ -141,14 +141,16 @@ export default function Home({ json, markdown, isSteamClient })
 
     useEffect(() => { 
         Fancybox.bind("[data-fancybox]", {
-			Images: {
+			Images: { 
                 Panzoom: {
                     maxScale: 2
                 }
             },
             Thumbs: {
                 type: 'classic'
-            }
+            },
+            animated: true,
+            
 		})
         EstablishConnection();
     }, []);

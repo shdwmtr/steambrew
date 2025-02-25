@@ -162,7 +162,9 @@ export default function Home({ pluginData, isSteamClient, apiError })
     }, []);
 
     return (
+
         <div className={GeistSans.className}>
+            <style>{`[class*="fancybox"] { font-family: ${GeistSans.style.fontFamily} !important; }`}</style>
             <HeadProp json={pluginData} apiError={apiError} />
             <div className="os-resize-observer-host observed">
             <div className="os-resize-observer"></div>

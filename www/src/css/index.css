@@ -1,5 +1,5 @@
 :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif !important;
+    /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif !important; */
     line-height: 1.5;
     font-weight: 400;
     color-scheme: light dark;
@@ -2134,7 +2134,7 @@ html {
 }
 
 body {
-    font-family: inter, sans-serif;
+    /* font-family: inter, sans-serif; */
     word-break: break-word;
 }
 
@@ -2607,9 +2607,13 @@ textarea.text-input {
 
 .markdown-body table {
     display: block;
-    width: 100%;
+    /* width: 100%; */
     overflow: auto;
     border-collapse: collapse;
+}
+
+.markdown-body img {
+    display: inline !important;
 }
 
 .markdown-body table td,
@@ -2873,7 +2877,7 @@ footer#section-footer {
 }
 
 .markdown-body details[open] summary {
-    background: rgb(0, 0, 0) !important;
+    background: rgb(24, 24, 24) !important;
     border-bottom: 1px solid rgb(51, 51, 51) !important;
 }
 
@@ -4268,4 +4272,14 @@ canvas {
 
 .fancybox__container {
     --fancybox-zIndex: 99999999 !important;
+    --fancybox-bg: rgba(0, 0, 0, 0) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.fancybox__caption {
+    display: none;
+}
+
+.fancybox__toolbar__column.is-right {
+    display: none !important;
 }
