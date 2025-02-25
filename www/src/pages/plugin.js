@@ -14,6 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from '../app/utils/globals';
 import { Tooltip } from 'react-tooltip';
 
+import { Fancybox } from '@fancyapps/ui';
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
 function HeadProp({ json, apiError }) {
 
     if (apiError) { 
@@ -145,64 +148,79 @@ export default function Home({ pluginData, isSteamClient, apiError })
         return <RenderAPIError/>
     }
 
+    useEffect(() => { 
+        Fancybox.bind("[data-fancybox]", {
+			Images: {
+                Panzoom: {
+                    maxScale: 2
+                }
+            },
+            Thumbs: {
+                type: 'classic'
+            }
+		})
+    }, []);
+
     return (
+
         <div className={GeistSans.className}>
-        <HeadProp json={pluginData} apiError={apiError} />
-        <div className="os-resize-observer-host observed">
-        <div className="os-resize-observer"></div>
-        </div>
-        <div className={`os-padding ${GeistSans.className}`}>
-            <div className="os-content">
-            <div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
-            <div className="vm-placement" id="vm-av" data-format="isvideo"></div>
-            {!isSteamClient && <RenderHeader/>}
-            <section id="main-page-content">
-            <section id="addon-details" className="page-section">
-            <ToastContainer
-                    position="bottom-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                    className={GeistSans.className}
-                />
-                <div className="page-section-inner theme-view-panel">
-                <img loading="lazy" src={pluginData?.splash_image} className="addon-backdrop"/>
-                <div className="flex-container align-center justify-between" id="addon-details-title">
-                    <div className="disabled sign-in-gate">
-                    </div>
-                </div>
-                <div className="flex-container" id="addon-splitview-container">
-                <div className="addon-details-column" id="addon-details-right-column">
-                    <div className="sticky-container">
-                    <div className="addon-details-segment" id="addon-details-column-actions">
-                        <a className="link_link__hbWKh link_secondary__F1rqx" href="/plugins"><small>← Back to Plugins</small></a>
-                        <a target="_blank" href={`https://github.com/${pluginData?.repoOwner}`} className="addon-author-container">
-                            <img loading="lazy" src={`https://github.com/${pluginData?.repoOwner}.png`}/>
-                            <h5>{pluginData?.repoOwner}</h5>
-                        </a>
-                        <h1 className="title">{pluginData?.pluginJson?.common_name ?? pluginData?.repoName}</h1>
-                        <div className="title-description theme-desc">
-                            {pluginData?.description}
+            <style>{`[class*="fancybox"] { font-family: ${GeistSans.style.fontFamily} !important; }`}</style>
+            <HeadProp json={pluginData} apiError={apiError} />
+            <div className="os-resize-observer-host observed">
+            <div className="os-resize-observer"></div>
+            </div>
+            <div className={`os-padding ${GeistSans.className}`}>
+                <div className="os-content">
+                <div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
+                <div className="vm-placement" id="vm-av" data-format="isvideo"></div>
+                {!isSteamClient && <RenderHeader/>}
+                <section id="main-page-content">
+                <section id="addon-details" className="page-section">
+                <ToastContainer
+                        position="bottom-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                        className={GeistSans.className}
+                    />
+                    <div className="page-section-inner theme-view-panel">
+                    <img loading="lazy" src={pluginData?.splash_image} className="addon-backdrop"/>
+                    <div className="flex-container align-center justify-between" id="addon-details-title">
+                        <div className="disabled sign-in-gate">
                         </div>
-                        <section id="addon-actions">
-                        <div className="btn-container direction-column">
-                            <div className='wrap-buttons'>
-                            {
-                                pluginData?.hasValidBuild ?
-                                <a onClick={_ => startDownload()} className="btn btn-primary" id='download-btn'>
-                                    <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVR4nO2UOwqAMBBE3zWsLCxsLLSw8vYGPYSghYVgIR4hErAQ/58EQfNgIBCYIRN24U9kgBwlTATImWzAAmkr+l5F1Yrplso7ATHQnTDvgeTuKyKg3TFXdyEP8YF6xbwBAjThAsXEXP2Ph2YcIB+3qjpb9CMuDJY8kDAdkBoo4CUG+aZ0PJTVTQsAAAAASUVORK5CYII="/>
-                                    <span draggable>Download</span>
-                                </a>  
-                                :
-                                <>
-                                    <a data-tooltip-id="not-available-tooltip" className="btn btn-primary not-available" id='download-btn'>
-                                        <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADQUlEQVR4nO2az0tUURTHP5QVqDlW46KC+gNatKll/g+VpBLRNpXauenXojELgnJXLSQkolIqN62KrEVpP5dWtCqylAo1ikQw48J5cTi8cd6bue+9WcwXLowz95zzvtx7zz3n+4QaaqghTbQAbUAfMAI8Bl7JcJ+H5bf9QJ4qQzPQA0wAf4HliMPNHQe6gVzWBPqB+RgPX2zMyUrl0iZxEJgu8lCfgBvACeAQsA9oB44BBeCOPHiY7VegMw0CjcD1kAf4BpwHdkT0UwfsAS4DCyH+hoCGJA/ySxPwJ9BbYdAtwEVg0fh+ITG9wjl8awI9ALZ6jLELeGdiTPok0xiyEueAVSSTQGZMrOdAvQ/n9ky4rZQE1gKjRZLANR/Zya5EWiRmzN8d5TpvAr4oR4+A1fjHGuCeeej7wEZzZqZl68VGv8lOPg/2SisxKt877DbZzF2asdBsLq3eDEgEGDAVQKzbv0cZf5fMlcZ2WhcydzPwR83rihNoQhm6GzuLldC4quY+IyJaTBUbtexIioRDq5q/FLUFaFNGH8meRLAV9Zl1/UxJ9CkDV8VmTSLAXWXrquiSGFEGrhSvBhL2OrhNBDxRBq6fqAYSSD8T+HBtc0m8UQZ7SSfFRkG78vM6LpEDVUIC6TRjEdFb6yjZbieNw3G31nAFtU1SJBxOK5+3iICCMnBCQTWQcLip/J4h5oU4J0JB1iQcPivf7ryURF7KgMDIqR1Zk9hpSpRNUQ3HleGVjEk4XFD+n1JmGb9QpKlKIsWGoVF0syDGEWIgZ4o0pztlsRIOJ1WM2XJkVV08LorulDaJbcCvuNkqTHyYUk4+iCCQxnZCdLOHRhcuW+TuLCHRJLUSDpdMrHLLpf8YMg7TIHHcxBr04bRBBGW7Mhvwj7qQlZjwJZkGffykCfBedCdf2C7FoI4xmcQrurwIyssmmw1UKN6tlxT7O2QlEnvPWC+Csj0vCyLZtEaszYKyw93YP0L8DfrcTiuhw+jCesxLij4r7Wm7qB6unzglVaxO63pM+chOcZGTkr/Y+8A4Y1Yuu6a0SVhC3aIA6qq51FiSArAr69fTYchLr1AQyWZM/cPAmHxXkDmRS/EaaqiBivEPQsfo+NRUoKsAAAAASUVORK5CYII=" alt="cancel-2"/>
+                    </div>
+                    <div className="flex-container" id="addon-splitview-container">
+                    <div className="addon-details-column" id="addon-details-right-column">
+                        <div className="sticky-container">
+                        <div className="addon-details-segment" id="addon-details-column-actions">
+                            <a className="link_link__hbWKh link_secondary__F1rqx" href="/plugins"><small>← Back to Plugins</small></a>
+                            <a target="_blank" href={`https://github.com/${pluginData?.repoOwner}`} className="addon-author-container">
+                                <img loading="lazy" src={`https://github.com/${pluginData?.repoOwner}.png`}/>
+                                <h5>{pluginData?.repoOwner}</h5>
+                            </a>
+                            <h1 className="title">{pluginData?.pluginJson?.common_name ?? pluginData?.repoName}</h1>
+                            <div className="title-description theme-desc">
+                                {pluginData?.description}
+                            </div>
+                            <section id="addon-actions">
+                            <div className="btn-container direction-column">
+                                <div className='wrap-buttons'>
+                                {
+                                    pluginData?.hasValidBuild ?
+                                    <a onClick={_ => startDownload()} className="btn btn-primary" id='download-btn'>
+                                        <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAg0lEQVR4nO2UOwqAMBBE3zWsLCxsLLSw8vYGPYSghYVgIR4hErAQ/58EQfNgIBCYIRN24U9kgBwlTATImWzAAmkr+l5F1Yrplso7ATHQnTDvgeTuKyKg3TFXdyEP8YF6xbwBAjThAsXEXP2Ph2YcIB+3qjpb9CMuDJY8kDAdkBoo4CUG+aZ0PJTVTQsAAAAASUVORK5CYII="/>
+                                        <span draggable>Download</span>
+                                    </a>  
+                                    :
+                                    <>
+                                        <a data-tooltip-id="not-available-tooltip" className="btn btn-primary not-available" id='download-btn'>
+                                            <img height={"16px"} width={"16px"} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADQUlEQVR4nO2az0tUURTHP5QVqDlW46KC+gNatKll/g+VpBLRNpXauenXojELgnJXLSQkolIqN62KrEVpP5dWtCqylAo1ikQw48J5cTi8cd6bue+9WcwXLowz95zzvtx7zz3n+4QaaqghTbQAbUAfMAI8Bl7JcJ+H5bf9QJ4qQzPQA0wAf4HliMPNHQe6gVzWBPqB+RgPX2zMyUrl0iZxEJgu8lCfgBvACeAQsA9oB44BBeCOPHiY7VegMw0CjcD1kAf4BpwHdkT0UwfsAS4DCyH+hoCGJA/ySxPwJ9BbYdAtwEVg0fh+ITG9wjl8awI9ALZ6jLELeGdiTPok0xiyEueAVSSTQGZMrOdAvQ/n9ky4rZQE1gKjRZLANR/Zya5EWiRmzN8d5TpvAr4oR4+A1fjHGuCeeej7wEZzZqZl68VGv8lOPg/2SisxKt877DbZzF2asdBsLq3eDEgEGDAVQKzbv0cZf5fMlcZ2WhcydzPwR83rihNoQhm6GzuLldC4quY+IyJaTBUbtexIioRDq5q/FLUFaFNGH8meRLAV9Zl1/UxJ9CkDV8VmTSLAXWXrquiSGFEGrhSvBhL2OrhNBDxRBq6fqAYSSD8T+HBtc0m8UQZ7SSfFRkG78vM6LpEDVUIC6TRjEdFb6yjZbieNw3G31nAFtU1SJBxOK5+3iICCMnBCQTWQcLip/J4h5oU4J0JB1iQcPivf7ryURF7KgMDIqR1Zk9hpSpRNUQ3HleGVjEk4XFD+n1JmGb9QpKlKIsWGoVF0syDGEWIgZ4o0pztlsRIOJ1WM2XJkVV08LorulDaJbcCvuNkqTHyYUk4+iCCQxnZCdLOHRhcuW+TuLCHRJLUSDpdMrHLLpf8YMg7TIHHcxBr04bRBBGW7Mhvwj7qQlZjwJZkGffykCfBedCdf2C7FoI4xmcQrurwIyssmmw1UKN6tlxT7O2QlEnvPWC+Csj0vCyLZtEaszYKyw93YP0L8DfrcTiuhw+jCesxLij4r7Wm7qB6unzglVaxO63pM+chOcZGTkr/Y+8A4Y1Yuu6a0SVhC3aIA6qq51FiSArAr69fTYchLr1AQyWZM/cPAmHxXkDmRS/EaaqiBivEPQsfo+NRUoKsAAAAASUVORK5CYII=" alt="cancel-2"/>
                                         <span draggable>Not Available</span>
                                     </a>
                                     <Tooltip id="not-available-tooltip" effect="solid" place="bottom-start" type="error" className="tooltip">

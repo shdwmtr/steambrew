@@ -1,8 +1,8 @@
 const fluenty = {
     description: "A theme based off of Windows 11 design principles",
     version: "1.0.2",
-    // yes I manually have to update this as patreon doesnt have an api for it
-    downloads: "7.2K"
+    // yes I manually have to update this as patreon doesn't have an api for it
+    downloads: "17.1K"
 }
 
 function DisplayFluentyAd() {
@@ -11,7 +11,7 @@ function DisplayFluentyAd() {
         <>
             <a className="card-wrap" href="/fluenty-steam">
                 <div className="card">
-                    <img loading="lazy" className="card-image" src='https://i.imgur.com/2aAaAES.gif' alt="Thumbnail" data-holder-rendered="true" />
+                    <img loading="lazy" className="card-image" src='https://i.imgur.com/2aAaAES.gif' data-holder-rendered="true" />
                     <div className="card-body">
                     <h3 className="card-title">Fluenty</h3>
                     <p className="card-description package-description">{fluenty.description}</p>
@@ -19,7 +19,7 @@ function DisplayFluentyAd() {
                         <div className="card-stats">
                         <div className="card-stat" id="addon-likes">
                             <div className="pfp-name">
-                                <p className="card-subtext package-author">by Shadow, Hexality</p> 
+                                <p className="card-subtext package-author">by Millennium</p> 
 
                                 <a target="_blank" className="addon-author-container">
                                     <img loading="lazy" src={`https://i.imgur.com/xSqPofh.png`}/>
