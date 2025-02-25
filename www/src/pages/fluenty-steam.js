@@ -7,6 +7,10 @@ import RenderHeader from '../app/components/HeaderComponent'
 import Head from "next/head"
 
 import { fluenty } from '../app/components/fluenty/RenderFluenty'
+import { useEffect } from 'react';
+
+import { Fancybox } from '@fancyapps/ui';
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 export async function getServerSideProps(context) {
     const isSteamClient = /Valve Steam Client/.test(context.req.headers['user-agent']);
@@ -18,6 +22,18 @@ export async function getServerSideProps(context) {
 }
 
 export default function FluentyViewModal({ isSteamClient }) {
+    useEffect(() => { 
+        Fancybox.bind("[data-fancybox]", {
+			Images: {
+                Panzoom: {
+                    maxScale: 2
+                }
+            },
+            Thumbs: {
+                type: 'classic'
+            },
+		})
+    }, []);
 
     return (
         <div className={GeistSans.className}>
@@ -154,14 +170,14 @@ export default function FluentyViewModal({ isSteamClient }) {
                                     <div >
                                         <h1>Fluenty</h1>
                                         <p>Inspired by the Microsft Store Fluent Design template launched with Windows 11</p>
-                                        <a href="https://i.imgur.com/ca6ncMp.gif" target="_blank">
+                                        <a href="https://i.imgur.com/ca6ncMp.gif" target="_blank" data-fancybox>
                                             <img src="https://i.imgur.com/ca6ncMp.gif" alt="Steam Skin"/>
                                         </a>
                                         <div className='FluentyImageContainer'>
-                                            <a href="https://i.imgur.com/ZbhJmIT.gif" target="_blank">
+                                            <a href="https://i.imgur.com/ZbhJmIT.gif" target="_blank" data-fancybox>
                                                 <img src="https://i.imgur.com/ZbhJmIT.gif" alt="Steam Skin"/>
                                             </a>
-                                            <a href="https://i.imgur.com/VB83oTU.gif" target="_blank">
+                                            <a href="https://i.imgur.com/VB83oTU.gif" target="_blank" data-fancybox>
                                                 <img src="https://i.imgur.com/VB83oTU.gif" alt="Steam Skin"/>
                                             </a>
                                         </div>
@@ -175,10 +191,10 @@ export default function FluentyViewModal({ isSteamClient }) {
                                         <p>Fluenty comes with 2 built in styles. Compact, and Spacious.</p>
                                         <p>To change between the two head over to the millennium interface and click edit on Fluenty, then deselect/select the compact view appropriately</p>
                                         <div className='FluentyImageContainer'>
-                                            <a href="https://i.imgur.com/ca6ncMp.gif" target="_blank">
+                                            <a href="https://i.imgur.com/ca6ncMp.gif" target="_blank" data-fancybox>
                                             <img src="https://i.imgur.com/ca6ncMp.gif" alt="Steam Skin"/>
                                             </a>
-                                            <a href="https://i.imgur.com/9U9Vq5x.gif" target="_blank">
+                                            <a href="https://i.imgur.com/9U9Vq5x.gif" target="_blank" data-fancybox>
                                             <img src="https://i.imgur.com/9U9Vq5x.gif" alt="Steam Skin"/>
                                             </a>
                                         </div>
