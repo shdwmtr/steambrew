@@ -15,11 +15,9 @@ function addPathToImgSrc(options) {
         visit(tree, 'element', (node, index, parent) => {
             if (node.tagName === 'img' && node.properties && node.properties.src) {
                 // Check if the src is already a full URL
-                if (node.properties.src.startsWith('http')) {
-                    return
+                if (!node.properties.src.startsWith('http')) {
+                    node.properties.src = `https://raw.githubusercontent.com/${options.owner}/${options.repo}/HEAD/${node.properties.src}`
                 }
-
-                node.properties.src = `https://raw.githubusercontent.com/${options.owner}/${options.repo}/HEAD/${node.properties.src}`
 
                 if (parent) {
                     const anchor = {
@@ -29,13 +27,15 @@ function addPathToImgSrc(options) {
                             href: node.properties.src,
                             target: '_blank',
                             rel: 'noreferrer',
-                            'data-fancybox': 'gallery',
                             'data-caption': node.properties.alt,
                         },
                         children: [{ ...node }]
-                    }
+                    };
 
-                    parent.children[index] = anchor
+                    // Remove data-fancybox attribute if image is too small like with badges
+                    node.properties.onload = `if(this.naturalWidth >= 100 && this.naturalHeight >= 100) { this.parentElement.setAttribute('data-fancybox', 'gallery'); }`;
+
+                    parent.children[index] = anchor;
                 }
             }
         })
