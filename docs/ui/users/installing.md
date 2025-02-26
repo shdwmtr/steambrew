@@ -29,14 +29,18 @@ Start by downloading the Millennium's Windows assets from [this repository](http
 
 ## Linux
 
+:::note
 Like to see Millennium apart of your distributions user package repository? Anyone is permitted to package Millennium and upload it to your favorite package manager; Just keep in mind solely you will maintain said package.
+:::
+
+:::caution
+Steam Snap & Steam Flatpak are Unsupported
+:::
 
 ### Automatic
 **Shell (pre-built binary)**
 
 This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.sh). 
-
-Steam Snap & Steam Flatpak are Unsupported
 
 ```bash
 curl -fsSL "https://raw.githubusercontent.com/SteamClientHomebrew/Millennium/main/scripts/install.sh" | sh

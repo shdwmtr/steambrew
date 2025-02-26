@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
+    "esbuild": "^0.25.0",
     "geist": "^1.3.1",
     "hast-util-sanitize": "^5.0.2",
     "highlight.js": "^11.10.0",
