@@ -1,6 +1,5 @@
 "use client"
 // import { Inter } from "next/font/google";
-import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 import GetLatestThemes from '../app/utils/GetFeatured';
 import RenderFooter from '../app/components/FooterComponent'
@@ -118,7 +117,7 @@ function ThemeLibrary({ isSteamClient }) {
     };
 
 	return (
-		<div className={GeistSans.className}>
+		<div>
         <Head>
             <title>Themes • Millennium</title>
         </Head>

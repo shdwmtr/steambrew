@@ -60,11 +60,7 @@ function RenderHome()
     <RenderHeader/>
 
       <style>
-        {`
-          .footer-container footer#section-footer {
-            background: #0a0a0a !important;
-          }
-        `}
+        {`.footer-container footer#section-footer { background: #0a0a0a !important; }`}
       </style>
 
       <main id="main-page-content" className='home-main-page-content'>
@@ -223,46 +219,7 @@ function RenderHome()
 
                 </div>
 
-                <CodeBlock language="javascript" value={`
-                  (Object.values(findModule((m) => {
-        if (typeof m !== 'object')
-            return false;
-        for (let prop in m) {
-            if (m[prop]?.m_mapModalManager && Object.values(m)?.find((x) => x?.type)) {
-                return true;
-            }
-        }
-        return false;
-    }) || {})?.find((x) => x?.type?.toString()?.includes('((function(){')) ||
-        Object.values(findModule((m) => {
-            if (typeof m !== 'object')
-                return false;
-            for (let prop in m) {
-                if (m[prop]?.toString()?.includes('"ModalManager","DialogWrapper"')) {
-                    return true;
-                }
-            }
-            return false;
-        }) || {})?.find((x) => x?.type?.toString()?.includes('((function(){')) ||
-        findModuleChild((m) => {
-            if (typeof m !== 'object')
-                return undefined;
-            for (let prop in m) {
-                if (m[prop]?.prototype?.OK && m[prop]?.prototype?.Cancel && m[prop]?.prototype?.render) {
-                    return m[prop];
-                }
-            }
-        }));
-    const ModalModule = findModule((mod) => {
-        if (typeof mod !== 'object')
-            return false;
-        for (let prop in mod) {
-            if (Object.keys(mod).length > 4 && mod[prop]?.toString().includes('.ModalPosition,fallback:'))
-                return true;
-        }
-        return false;
-    });
-                  `} />
+                <CodeBlock language="javascript" value={`(Object.values(findModule((m) => {if (typeof m !== 'object')return false;for (let prop in m) {if (m[prop]?.m_mapModalManager && Object.values(m)?.find((x) => x?.type)) {return true;}}return false;}) || {})?.find((x) => x?.type?.toString()?.includes('((function(){')) ||Object.values(findModule((m) => {if (typeof m !== 'object')return false;for (let prop in m) {if (m[prop]?.toString()?.includes('"ModalManager","DialogWrapper"')) {return true;}}return false;}) || {})?.find((x) => x?.type?.toString()?.includes('((function(){')) ||findModuleChild((m) => {if (typeof m !== 'object')return undefined;for (let prop in m) {if (m[prop]?.prototype?.OK && m[prop]?.prototype?.Cancel && m[prop]?.prototype?.render) {return m[prop];}}}));const ModalModule = findModule((mod) => {if (typeof mod !== 'object')return false;for (let prop in mod) {if (Object.keys(mod).length > 4 && mod[prop]?.toString().includes('.ModalPosition,fallback:'))return true;}return false; }); const wnd = GetMainSteamWindow()`} />
 
               </div>
             </div>

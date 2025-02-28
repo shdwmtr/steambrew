@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 import RenderFooter from '../app/components/FooterComponent'
 import RenderHeader from '../app/components/HeaderComponent'
@@ -235,12 +234,12 @@ export default function Home({ json, markdown, isSteamClient })
     }
 
     return (
-        <div className={GeistSans.className}>
+        <div>
         <HeadProp json={json} />
         <div className="os-resize-observer-host observed">
         <div className="os-resize-observer"></div>
         </div>
-        <div className={`os-padding ${GeistSans.className}`}>
+        <div className={`os-padding`}>
             <div className="os-content">
             <div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
             <div className="vm-placement" id="vm-av" data-format="isvideo"></div>
@@ -258,7 +257,6 @@ export default function Home({ json, markdown, isSteamClient })
                     draggable
                     pauseOnHover
                     theme="dark"
-                    className={GeistSans.className}
                 />
                 <div className="page-section-inner theme-view-panel">
                 <img loading="lazy" src={json?.splash_image} className="addon-backdrop"/>

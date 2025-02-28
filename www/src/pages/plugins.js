@@ -1,16 +1,13 @@
 "use client"
-// import { Inter } from "next/font/google";
-import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 import GetLatestThemes from '../app/utils/GetFeatured';
 import RenderFooter from '../app/components/FooterComponent'
 import RenderHeader from '../app/components/HeaderComponent'
-import { DisplayFluentyAd } from '../app/components/fluenty/RenderFluenty'
 import '../css/index.css'
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
 import CreateCard from '../app/components/plugins/CardComponent';
-// const inter = Inter({ subsets: ["latin"] });
+
 import { API_URL } from '../app/utils/globals';
 
 export async function getServerSideProps(context) {
@@ -118,7 +115,7 @@ function PluginLibrary({ isSteamClient }) {
     };
 
 	return (
-		<div className={GeistSans.className}>
+		<div>
         <Head>
             <title>Plugins • Millennium</title>
         </Head>

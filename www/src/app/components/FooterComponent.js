@@ -41,10 +41,7 @@ function RenderFooter() {
                     </div>
                     </div>
                     <div className="flex-container wrap" id="footer-copyright-container">
-                    <div className="footer-copyright text-center"> © {new Date().getFullYear()} <a className="anchor" rel="noreferrer noopener" target="_blank" href="https://github.com/orgs/SteamClientHomebrew/people">
-                        Steam Client Homebrew
-                        </a>
-                    </div>
+                    <div className="footer-copyright text-center"> © {new Date().getFullYear()} Steam Client Homebrew</div>
                     <div className="footer-disclaimer"> 
                         Steam Homebrew is not affiliated with nor endorsed by Valve Corporation. 
                     </div>

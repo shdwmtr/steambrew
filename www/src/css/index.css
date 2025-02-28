@@ -9,6 +9,8 @@
     text-rendering: optimizelegibility;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
 a {
     font-weight: 500;
     color: rgb(100, 108, 255);
@@ -23,6 +25,7 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    font-family: 'Geist';
 }
 
 h1 {
@@ -2433,8 +2436,12 @@ textarea.text-input {
 
 .markdown-body img {
     max-width: 100%;
-    height: auto;
+    /* height: auto; */
     border-radius: 3px;
+}
+
+hr {
+    font-size: 6px !important;
 }
 
 .markdown-body h1,

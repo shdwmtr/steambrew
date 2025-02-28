@@ -1,4 +1,3 @@
-import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 
 const description = "Apply themes/skins/customization the new version of the Steam® Client. Steam Client Homebrew is a community focused on extending Steam's base functionality. We've developed Millennium, commonly known as Millennium for Steam, that lets you add new features to your Steam Client."
@@ -36,10 +35,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="48x48"></link>
-      </Head>
-      <body className={GeistSans.className}>{children}</body>
+      <body className={"SteamBrewAppBody"}>{children}</body>
     </html>
   );
 }

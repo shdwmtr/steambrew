@@ -1,8 +1,7 @@
 {
   "hosting": {
-    "public": "public",
     "errorPages": {
-      "500": "/500.html"
+      "500": "/public/500.html"
     },
     "source": ".",
     "ignore": [
