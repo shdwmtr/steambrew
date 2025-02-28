@@ -2840,7 +2840,7 @@ body {
 }
 
 .card-container .card {
-    background: rgb(33, 33, 33) !important;
+    background: rgb(33, 33, 33);
 }
 
 img.card-image {

@@ -7,6 +7,7 @@ import '../css/index.css'
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
 import CreateCard from '../app/components/plugins/CardComponent';
+import ShowThemeSkeletonCards from '../app/components/SkeletonCard';
 
 import { API_URL } from '../app/utils/globals';
 
@@ -186,12 +187,11 @@ function PluginLibrary({ isSteamClient }) {
 				</div>
 				<div className='themes-right-side'>
 					<section id="addons-content" className="page-section">
-						{/* <div className="add-submission">
-							<button>Submit a Plugin</button>
-						</div> */}
 						<div className="theme-listings">
 							{
-								!cards.length ? <div className="spinner"></div> :
+								!cards.length ? 
+								<div className="card-container"><ShowThemeSkeletonCards cardHeight={153}/></div> 
+								:
 								<div className="card-container plugin-card-container">
 									{ cards.map((tag, index) => (
 										<div key={index}>

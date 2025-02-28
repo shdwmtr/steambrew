@@ -9,6 +9,7 @@ import '../css/index.css'
 import Select from 'react-select';
 import React, { useState, useEffect } from 'react';
 import CreateCard from '../app/components/themes/CardComponent';
+import ShowThemeSkeletonCards from '../app/components/SkeletonCard';
 import { API_URL } from '@/app/utils/globals';
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -190,7 +191,9 @@ function ThemeLibrary({ isSteamClient }) {
 					<section id="addons-content" className="page-section">
 						<div className="theme-listings">
 							{
-								!cards.length ? <div className="spinner"></div> :
+								!cards.length ? 
+								<div className="card-container"><ShowThemeSkeletonCards cardHeight={337}/></div> 
+								:
 								<div className="card-container">
 									{ DisplayFluentyAd() }
 									{ cards.map((tag, index) => (
