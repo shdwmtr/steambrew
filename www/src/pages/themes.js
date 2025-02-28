@@ -118,8 +118,12 @@ function ThemeLibrary({ isSteamClient }) {
 
 	return (
 		<div>
-        <Head>
+        <Head> 
             <title>Themes • Millennium</title>
+
+			<link rel="preconnect" href="https://fonts.googleapis.com" />
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+			<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
         </Head>
 		<div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
 			<div className="vm-placement" id="vm-av" data-format="isvideo"></div>

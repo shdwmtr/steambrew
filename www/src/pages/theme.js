@@ -36,6 +36,10 @@ function HeadProp({ json }) {
             <meta name="theme-color" content="#3a71c1"/>
             
             <meta name="author" content={json.author ?? "Anonymous"}/>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+            <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
         </Head>
     )
 } 

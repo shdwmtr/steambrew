@@ -9,8 +9,6 @@
     text-rendering: optimizelegibility;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-
 a {
     font-weight: 500;
     color: rgb(100, 108, 255);
