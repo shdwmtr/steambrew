@@ -1,5 +1,3 @@
-
-import { GeistSans } from 'geist/font/sans';
 import '../css/index.css'
 
 import RenderFooter from '../app/components/FooterComponent'
@@ -36,7 +34,7 @@ export default function FluentyViewModal({ isSteamClient }) {
     }, []);
 
     return (
-        <div className={GeistSans.className}>
+        <div>
             <Head>
                 <title>{`Fluenty - Millennium`}</title>
                 <meta name="description" content={fluenty.description} />

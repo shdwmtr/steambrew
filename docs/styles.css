@@ -3,11 +3,7 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
-
-@font-face {
-  font-family: 'Geist';
-  src: url("./static/fonts/GeistVF.woff2") format("woff2");
-}
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
 :root {
   --bg1: #040405;
