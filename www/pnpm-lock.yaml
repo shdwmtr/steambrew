@@ -12,7 +12,7 @@ importers:
         specifier: ^5.0.36
         version: 5.0.36
       esbuild:
-        specifier: ^0.19.2
+        specifier: ^0.19.12
         version: 0.19.12
       hast-util-sanitize:
         specifier: ^5.0.2
