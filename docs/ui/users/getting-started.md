@@ -28,7 +28,11 @@ You can alternatively disable the entire shield for the site.
 
 # Plugins 
 
-As of 6/11/2024, plugins don't quite yet have proper support. The only supported plugin is the pre-installed plugin "Millennium". We hope to have proper support in the near future! Stick around for development, or contribute if you'r tech savvy!
+1. Open Steam with Millennium installed and navigate to https://steambrew.app/plugins.
+2. Select a plugin you wish to use, click `Download`.
+3. Once prompted to choose a download location, navigate to your Steam plugins folder, which should look something like this: 'C:\Program Files (x86)\Steam\plugins'
+4. Once the file has been installed in your plugins folder, you must extract the zip file into a new folder named after the plugin you installed.
+5. Navigate to Steam Settings -> Plugins and enable your newly installed plugin. NOTE: You may have to fully restart Steam for the plugin to take affect.
 
 
 # Updates
