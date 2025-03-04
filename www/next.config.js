@@ -1,8 +1,6 @@
 // @ts-check
  
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    transpilePackages: ["geist"],
-}
+const nextConfig = {}
 
 module.exports = nextConfig
