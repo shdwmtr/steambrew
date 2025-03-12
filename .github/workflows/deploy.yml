@@ -26,6 +26,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
+          cd www
           pnpm install
           cd docs
           pnpm install
@@ -70,5 +71,6 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: | 
+          cd www
           pnpm run build
           firebase deploy --only hosting --token $FIREBASE_TOKEN

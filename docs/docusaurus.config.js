@@ -73,12 +73,12 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/SteamClientHomebrew/Docs/fork',
+            href: 'https://github.com/shdwmtr/steambrew/tree/main/docs',
             label: 'Contribute',
             position: 'right',
           },
           {
-            href: 'https://github.com/SteamClientHomebrew/Millennium',
+            href: 'https://github.com/shdwmtr/millennium',
             label: 'GitHub',
             position: 'right',
           },
