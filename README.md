@@ -11,15 +11,36 @@
 
 * [User API](./api/)
 * [Documentation](./docs/)
-* [SteamBrew App](./src/)
+* [SteamBrew App](./www/)
 
 ## Building
 
 ```
 git clone https://github.com/shdwmtr/steambrew.git
-cd steambrew
-pnpm install
+```
+
+### Build Main Site
+
+```bash
+cd www
+pnpm install 
 pnpm run dev
+```
+
+### Building Documentation
+
+```bash
+cd docs
+pnpm install
+pnpm run start
+```
+
+### Building API
+
+```bash
+cd api
+npm install # Firebase doesn't support pnpm
+npm run shell
 ```
 
 ## Contributing
