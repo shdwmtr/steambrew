@@ -10,6 +10,7 @@ Dynamic patching is a feature that allows themes to conditionally inject Css/Js 
 |-----|:------:|-----------|
 |default|`Any`|The preselected default option from `values`|
 |description|`String`|A basic description of the what the config does. Supports [BB code][guide]|
+|tab|`String`|Title of the custom settings tab that the option is displayed under. (optional)|
 |values|`Object`|An object containing keys `yes`/`no` for checkbox config, and other string values for combobox|
 |`values` item|`Object`|Contains a `TargetCss` and/or a `TargetJs` object|
 |`TargetJs` & `TargetCss`|`Object`|Contains an `affects` key, and a `src` key|
@@ -33,6 +34,7 @@ Note you must remove all comments from the following JSON, as they are not valid
     "A Boolean Checkbox": {
         "default": "yes",
         "description": "A simple boolean checkbox",
+        "tab": "General",
         "values": {
             // since "values" only contains "yes" and "no" keys, it will be rendered as a checkbox
             "no": {
@@ -50,6 +52,7 @@ Note you must remove all comments from the following JSON, as they are not valid
     // name of the combobox in the theme editor
     "A ComboBox Item": {
         "description": "A simple combo box",
+        "tab": "Theme",
         "default": "Dark",
         "values": {
             // since "values" doesn't contains "yes" or "no", it will be rendered as a combo box with "Dark", "Amoled", and "Nord"
