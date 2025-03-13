@@ -13,10 +13,11 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@babel/helpers": "^7.26.10",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "firebase-admin": "^13.0.2",
-    "firebase-functions": "^6.2.0",
+    "firebase-admin": "^13.2.0",
+    "firebase-functions": "^6.3.2",
     "node-cache": "^5.1.2"
   },
   "devDependencies": {

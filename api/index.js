@@ -5,17 +5,14 @@ const express = require("express");
 
 const millennium = express()
 
-// if (process.env.NODE_ENV !== 'production') {
-//     millennium.listen(3000)
-// }
-
 /* Setup express posting and CORS */
 millennium.use(express.json())
 millennium.use(express.urlencoded({ extended: true }))
 millennium.use(cors());
 
 var admin = require("firebase-admin");
-const functions = require("firebase-functions")
+
+const { onRequest } = require("firebase-functions/v2/https");
 const { cache_handler, reset } = require("./middleware/cache.js")
 const { rate_limit } = require("./middleware/rate-limiter.js")
 
@@ -219,4 +216,4 @@ millennium.get('/api/v1/plugins/download', async (req, res) => {
 });
 
 
-exports.api = functions.https.onRequest(millennium)
+exports.api = onRequest({ cors: true }, millennium);

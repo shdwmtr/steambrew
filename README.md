@@ -15,7 +15,7 @@
 
 ## Building
 
-```
+```bash
 git clone https://github.com/shdwmtr/steambrew.git
 ```
 

@@ -31,7 +31,7 @@ function ThemeLibrary({ isSteamClient }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(API_URL + '/api/v2/');
+                const response = await fetch(API_URL + '/api/v2');
                 let result = await response.json();
 
 				const buffer = ["All"];
