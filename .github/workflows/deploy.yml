@@ -31,7 +31,7 @@ jobs:
         run: |
           cd www
           pnpm install
-          cd docs
+          cd ../docs
           pnpm install
           cd ../api
           npm install
