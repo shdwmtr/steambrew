@@ -29,7 +29,7 @@ function PluginLibrary({ isSteamClient }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(API_URL + '/api/v1/plugins');
+                const response = await fetch(API_URL + '/api/v1/plugins/');
                 let result = await response.json();
 
 				const buffer = ["All"];
