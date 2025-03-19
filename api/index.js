@@ -126,6 +126,7 @@ const FetchPlugins = async () => {
 
                     pluginData[key].downloadCount = downloadCounts[initCommitId] ?? 0;
                     pluginData[key].id = pluginId;
+                    pluginData[key].commitId = data.commitId;
                     pluginData[key].initCommitId = initCommitId;
                 }
             }
@@ -157,7 +158,7 @@ millennium.get("/api/v1/plugin/:id", cache_handler, async (req, res) => {
     
         if (exists) {
             const [ metadata ] = await pluginBuild.getMetadata()
-            plugin.commitDate = new Date(metadata.updated) > new Date(metadata.timeCreated) ? metadata.updated : metadata.timeCreated;
+            // plugin.commitDate = new Date(metadata.updated) > new Date(metadata.timeCreated) ? metadata.updated : metadata.timeCreated;
             plugin.fileSize = Number(metadata.size);
             plugin.hasValidBuild = true;
         } 
