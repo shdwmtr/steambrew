@@ -178,7 +178,7 @@ function RenderHome()
           <div className="page-section-inner intro-section">    
 
           <video ref={videoRef} autoPlay muted loop playsInline>
-            <source src="https://github.com/SteamClientHomebrew/Millennium/assets/81448108/0c4a0ea0-7995-442a-b569-68ca3750fd5e" type="video/mp4" />
+            <source src="https://github.com/user-attachments/assets/ea9028d1-ecfd-4d95-b199-33bb6b657bff" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
