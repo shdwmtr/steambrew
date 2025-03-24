@@ -2,7 +2,7 @@
 
 import '../css/index.css'
 import '../css/home.css'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useRef, useEffect } from 'react'
 
 import RenderFooter from './components/FooterComponent'
 import RenderHeader from './components/HeaderComponent'
@@ -25,10 +25,6 @@ function RenderHome()
   const [scrolled, setIsFloating] = useState(false);
   const [platform, setPlatform] = useState(Platform.Unset);
 
-  const handleScroll = () => {
-    setIsFloating((window.scrollY || document.documentElement.scrollTop) > navbar.clientHeight);
-  };
-
   const GetPlatformFromUserAgent = () => {
     const userAgent = navigator.userAgent.toLowerCase();
     console.log(userAgent)
@@ -43,12 +39,70 @@ function RenderHome()
   useLayoutEffect(() => {
     setPlatform(GetPlatformFromUserAgent());
     GetStatisticsSync().then(stats => setStat(stats))
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
   }, [])
+  
+  const mainContentRef  = useRef(null);
+  const videoRef        = useRef(null);
+  const feature1Ref     = useRef(null);
+  const feature2Ref     = useRef(null);
+  const contributorsRef = useRef(null);
+  const footerRef       = useRef(null);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop === 0) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.pause();
+    }
+    else {
+      videoRef.current.play();
+    }
+
+    setIsFloating((window.scrollY || document.documentElement.scrollTop) > navbar.clientHeight);
+  };
+  
+  const refsArray = [mainContentRef, videoRef, feature1Ref, feature2Ref, contributorsRef, footerRef];
+  
+  useEffect(() => {
+    let isScrolling = false;
+    let currentIndex = 0;
+
+    const handleWheel = (e) => {
+      e.preventDefault();
+      
+      if (isScrolling) 
+        return;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const nextIndex = Math.max(0, Math.min(refsArray.length - 1, currentIndex + direction));
+      
+      if (nextIndex === currentIndex) 
+        return;
+      
+      currentIndex = nextIndex;
+      const targetRef = refsArray[nextIndex];
+      
+      if (targetRef && targetRef.current) {
+        isScrolling = true;
+
+        if (targetRef.current.tagName === 'VIDEO') {
+          targetRef.current.currentTime = 0;
+        }
+
+        targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        setTimeout(() => { isScrolling = false; }, 800); 
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -62,6 +116,8 @@ function RenderHome()
       <style>
         {`.footer-container footer#section-footer { background: #0a0a0a !important; }`}
       </style>
+
+      <div ref={mainContentRef} />
 
       <main id="main-page-content" className='home-main-page-content'>
         <section id="home-hero-section" className="page-section">
@@ -79,8 +135,8 @@ function RenderHome()
 
           <div className="page-section-inner">
             <div id="hero-top-container" className="flex-container align-center justify-center direction-column">
-              <h1 className="text-center title">Millennium.</h1>
-              <p className="text-center title-description">An open source gateway to a better Steam® Client user experience</p>
+              <h1 className="text-center title">Millennium</h1>
+              <p className="text-center title-description">An open source gateway to a better Steam® client experience.</p>
               <div className="btn-container">
                 <a href="https://docs.steambrew.app/users/installing">
                   <button className="btn btn-primary" id="hero-download-button">
@@ -120,8 +176,14 @@ function RenderHome()
         </section>
         <section id="home-additional-features" className="page-section">     
           <div className="page-section-inner intro-section">    
+
+          <video ref={videoRef} autoPlay muted loop playsInline>
+            <source src="https://github.com/SteamClientHomebrew/Millennium/assets/81448108/0c4a0ea0-7995-442a-b569-68ca3750fd5e" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
           <div className="features-view" style={{height: 'auto !important'}}>
-            <div className="feature" id="feature-1" style={{height: 'auto !important'}}>
+            <div className="feature" id="feature-1" ref={feature1Ref} style={{height: 'auto !important'}}>
               <div className="theme-showcase hide-mobile">
                 <div className="theme-showcase-inner">
                   <div className="crossfade-image" />
@@ -157,7 +219,7 @@ function RenderHome()
                 </a>
               </div>
             </div>
-            <div className="feature" id="feature-2" style={{height: 'auto !important'}}>
+            <div className="feature" id="feature-2" ref={feature2Ref} style={{height: 'auto !important'}}>
               <div className="feature-info" style={{height: 'auto !important'}}>
                 <h1 className="title">Plugins</h1>
                 <p className="title-description" style={{fontSize: "16px"}}>Millennium comes with a builtin plugin loader and plugin API. Plugins can increase the functionality and user experience of the app through JavaScript. Write your own or download plugins made by the community.</p>
@@ -225,7 +287,7 @@ function RenderHome()
             </div>
           </div>
 
-            <h1 className="title text-center">And More...</h1>
+            {/* <h1 className="title text-center">And More...</h1>
             <p className="title-description text-center">Millennium also offers a varienty of additional quality of life features right out the box!</p>
             <div id="additional-features" className="flex-container align-center justify-center wrap">
               <div className="additional-feature" id="additional-feature-emotes">
@@ -249,11 +311,33 @@ function RenderHome()
                 <h5>Safety</h5>
                 <p>Our developers manually review all code on the community hub to ensure there is nothing malicious</p>
               </div>
+            </div> */}
+
+            <div className="open-source-section">
+              <h1 className="title text-center">Open Source ❤️</h1>
+              <p className="title-description text-center">Community driven, made by beautiful people just like you.</p>
+
+              {
+                stat?.contributors && (
+                  <div className="contributors-container">
+                    <div className="contributors-list" ref={contributorsRef}>
+                      {stat.contributors.map((contributor, index) => (
+                        <a key={index} href={contributor.html_url} target="_blank" rel="noreferrer">
+                          <div key={index} className="contributor">
+                            <img src={contributor.avatar_url} alt={contributor.login} />
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )
+              }
             </div>
           </div>
         </section>
       </main>
     <RenderFooter/>
+    <div ref={footerRef} />
     </>
   );
 }

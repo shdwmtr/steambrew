@@ -2,17 +2,21 @@
 export const GetStatisticsSync = async () => 
 {
     const discord = await fetch('https://discord.com/api/v9/invites/NcNMP6r2Cw?with_counts=true&with_expiration=true').then((response) => response.json());
-    const github = await fetch("https://api.github.com/repos/SteamClientHomebrew/Millennium/releases").then((response) => response.json());
+    const github = await fetch("https://api.github.com/repos/shdwmtr/millennium/releases").then((response) => response.json());
+    const contributors = await fetch("https://api.github.com/repos/shdwmtr/millennium/contributors").then((response) => response.json());
 
     // add download count from old cdn as well: https://api.github.com/repos/ShadowMonster99/millennium-steam-binaries/releases
     const totalDownloads = github.reduce((acc, release) => {
         return acc + release.assets.reduce((sum, asset) => sum + asset.download_count, 0);
     }, 0) + 174452;
 
+    console.log(contributors)
+
     return {
         version: github[0].tag_name,
         download_count: totalDownloads,
-        server_members: discord.approximate_member_count
+        server_members: discord.approximate_member_count,
+        contributors: contributors
     }
 }
 

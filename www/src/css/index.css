@@ -3272,7 +3272,7 @@ body {
 
 header#navbar {
     background: rgba(0, 0, 0, 0) !important;
-    border-bottom: 1px solid #1f1f1f;
+    /* border-bottom: 1px solid #1f1f1f; */
     backdrop-filter: blur(17px);
 }
 
@@ -4288,3 +4288,38 @@ canvas {
 .fancybox__toolbar__column.is-right {
     display: none !important;
 }
+
+.contributors-list {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+    width: 100%;
+    margin-top: 50px;
+    padding: 0px 40px 0px 40px;
+}
+
+.contributor img {
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid #1d1d1d;
+}
+
+.open-source-section {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.contributor {
+    transition: all 0.1s ease-in-out;
+  }
+  .contributor:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  video {
+    width: 100%;
+    border-radius: 10px !important;
+    margin-bottom: 100px;
+  }

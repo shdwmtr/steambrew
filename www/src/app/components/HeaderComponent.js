@@ -49,6 +49,11 @@ function RenderHeader() {
                                 <path d="M1.25215 5.54731L0.622742 4.9179L3.78169 1.75597H1.3834L1.38936 0.890915H5.27615V4.78069H4.40513L4.41109 2.38538L1.25215 5.54731Z" fill="var(--accents-3)"></path>
                             </svg>
                         </a>
+                        <a className={`nav-item`} target="_blank" href="https://docs.steambrew.app/about">About
+                            <svg aria-hidden="true" className="navbar_externalArrow___VWBd" height="7" viewBox="0 0 6 6" width="7">
+                                <path d="M1.25215 5.54731L0.622742 4.9179L3.78169 1.75597H1.3834L1.38936 0.890915H5.27615V4.78069H4.40513L4.41109 2.38538L1.25215 5.54731Z" fill="var(--accents-3)"></path>
+                            </svg>
+                        </a>
                         <a href="/discord">
                             <button type="submit" className="btn btn-secondary">
                                 <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" width="16" height="16">
