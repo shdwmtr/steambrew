@@ -23,8 +23,7 @@ export async function POST(request: Request) {
 	const json = await request.json();
 
 	try {
-		const data = await CheckForUpdates(json);
-		return new Response(JSON.stringify(data), {
+		return Response.json(await CheckForUpdates(json), {
 			status: 200,
 		});
 	} catch (error) {

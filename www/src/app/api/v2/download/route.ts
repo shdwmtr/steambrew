@@ -26,8 +26,7 @@ export async function POST(request: Request) {
 	const json = await request.json();
 
 	try {
-		const data = await IncrementDownload(json);
-		return new Response(JSON.stringify(data), {
+		return Response.json(await IncrementDownload(json), {
 			status: 200,
 		});
 	} catch (error) {

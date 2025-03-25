@@ -33,12 +33,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
 	const { slug } = await params;
 
 	try {
-		const plugin = await FindPlugin(slug);
-		return new Response(JSON.stringify(plugin), {
+		return Response.json(await FindPlugin(slug), {
 			status: 200,
-			headers: {
-				'content-type': 'application/json',
-			},
 		});
 	} catch (error) {
 		return new Response(error.message, {

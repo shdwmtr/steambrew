@@ -121,8 +121,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
 	const { slug } = await params;
 
 	try {
-		const details = await getDetails(slug);
-		return new Response(JSON.stringify(details), {
+		return Response.json(await getDetails(slug), {
 			status: 200,
 		});
 	} catch (error) {

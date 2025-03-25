@@ -83,11 +83,5 @@ async function getFeatured(): Promise<any[]> {
 }
 
 export async function GET(request: Request) {
-	const response = new Response(JSON.stringify(await getFeatured()), {
-		headers: {
-			'content-type': 'application/json',
-			...headers,
-		},
-	});
-	return response;
+	return Response.json(await getFeatured());
 }

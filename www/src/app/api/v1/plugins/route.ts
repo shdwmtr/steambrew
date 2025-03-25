@@ -2,6 +2,7 @@ import { Database } from '../../Firebase';
 import { GetPluginData, PluginDataProps } from './GetPluginData';
 import { GetPluginMetadata } from './GetPluginMetadata';
 import { RetrievePluginList } from './GetPluginList';
+import { headers } from 'next/headers';
 
 export const FetchPlugins = async () => {
 	return new Promise<PluginDataProps[]>(async (resolve, reject) => {
@@ -41,10 +42,5 @@ export const FetchPlugins = async () => {
 };
 
 export async function GET(request: Request) {
-	const response = new Response(JSON.stringify(await FetchPlugins()), {
-		headers: {
-			'content-type': 'application/json',
-		},
-	});
-	return response;
+	return Response.json(await FetchPlugins());
 }
