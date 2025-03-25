@@ -124,7 +124,7 @@ function RenderHome()
   const contributorsRef = useRef(null);
   const footerRef       = useRef(null);
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   const handleScroll = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
