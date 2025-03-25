@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
+    "dotenv": "^16.4.7",
     "esbuild": "^0.19.12",
+    "firebase-admin": "^13.2.0",
     "hast-util-sanitize": "^5.0.2",
     "highlight.js": "^11.10.0",
     "next": "14.1.0",
+    "node-cache": "^5.1.2",
     "notyf": "^3.10.0",
     "prism-react-renderer": "^2.3.1",
     "react": "^18.3.1",
@@ -37,7 +40,14 @@
       "esbuild"
     ],
     "onlyBuiltDependencies": [
-      "esbuild"
+      "@firebase/util",
+      "esbuild",
+      "protobufjs"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "22.13.13",
+    "@types/react": "19.0.12",
+    "typescript": "5.8.2"
   }
 }

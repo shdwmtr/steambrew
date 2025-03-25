@@ -1,51 +1,29 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Main",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "args": [
-                "run",
-                "dev"
-            ],
-            "cwd": "${workspaceFolder}/www",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "API",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "args": [
-                "run",
-                "shell"
-            ],
-            "cwd": "${workspaceFolder}/api",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Docs",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "args": [
-                "run",
-                "start"
-            ],
-            "cwd": "${workspaceFolder}/docs",
-            "console": "integratedTerminal"
-        }
-    ],
-    "compounds": [
-        {
-            "name": "Start",
-            "configurations": [
-                "Main",
-                "API",
-                "Docs"
-            ]
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Main",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"args": ["run", "dev"],
+			"cwd": "${workspaceFolder}/www",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Docs",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"args": ["run", "start"],
+			"cwd": "${workspaceFolder}/docs",
+			"console": "integratedTerminal"
+		}
+	],
+	"compounds": [
+		{
+			"name": "Start",
+			"configurations": ["Main", "Docs"]
+		}
+	]
 }

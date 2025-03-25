@@ -39,6 +39,12 @@
   --ifm-color-emphasis-500: #151515 !important;
   --code-bg-color: #151515 !important;
   --ifm-color-info-contrast-background: #0f0f0f !important;
+
+  --ifm-alert-border-color: #222222 !important;
+}
+
+.alert--info {
+  --ifm-alert-border-color: #383838 !important;
 }
 
 code {
@@ -513,4 +519,13 @@ table {
 
 .menu__link--sublist-caret::after {
   content: unset !important;
+}
+
+details {
+  background: #131313 !important;
+  border: 1px solid #222222 !important;
+}
+
+[class*="collapsibleContent"] {
+  border-top: 1px solid #222222 !important;
 }

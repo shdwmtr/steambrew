@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
 import Head from "next/head"
-import RenderFooter from '../app/components/FooterComponent'
-import RenderHeader from '../app/components/HeaderComponent'
-import { MarkdownToHtml } from '../app/utils/MarkDownConvert'
+import RenderFooter from '@/components/FooterComponent'
+import RenderHeader from '@/components/HeaderComponent'
+import { MarkdownToHtml } from '@/utils/MarkDownConvert'
 
-import { DateToString, FormatNumber } from '../app/utils/Util'
-import '../css/index.css'
+import { DateToString, FormatNumber } from '@/utils/Util'
+import '@/css/index.css'
 import 'react-toastify/dist/ReactToastify.css';
-import { API_URL } from '@/app/utils/globals';
+import { API_URL } from '@/utils/globals';
 
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";

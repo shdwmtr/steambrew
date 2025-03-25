@@ -3,9 +3,14 @@ sidebar_position: 1
 description: Quick guide to getting Millennium.
 ---
 
+
 # Installing
 
-## Windows
+A quick guide to installing Millennium.
+
+<details>
+  <summary>Windows</summary>
+
 
 ### Automatic
 To install Millennium on windows, we use a PowerShell installer script. To run the script, open PowerShell, paste the following command, and press enter.
@@ -17,7 +22,7 @@ This installer is entirely open source and we encourage the community audit the 
 ```powershell
 iwr -useb "https://steambrew.app/install.ps1" | iex
 ```
-![Installing Millennium Preview](https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/static/install.gif)
+<!-- ![Installing Millennium Preview](https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/static/install.gif) -->
 
 ### Manual
 
@@ -27,15 +32,31 @@ Start by downloading the Millennium's Windows assets from [this repository](http
 (Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam" -Name "InstallPath").InstallPath
 ```
 
-## Linux
+</details>
 
-:::note
-Like to see Millennium apart of your distributions user package repository? Anyone is permitted to package Millennium and upload it to your favorite package manager; Just keep in mind solely you will maintain said package.
-:::
+<details>
+  <summary>Linux</summary>
 
 :::caution
-Steam Snap & Steam Flatpak are Unsupported
+We don't support Steam installed via [Flatpak](https://flatpak.org/) or [Snap](https://snapcraft.io/).
+We also don't support any ARM based distributions as they require custom Steam installations.
 :::
+
+:::note
+Looking to package Millennium for your favorite distribution? It should be a relatively simple process, the filesystem hierarchy is easily change-able [here](https://github.com/shdwmtr/millennium/blob/main/src/sys/env.cc#L111C1-L134C11). From there you can build Millennium to use any filesystem standard!
+:::
+
+### Arch Linux (AUR)
+
+We officially offer support for Millennium on the [Arch User Repository (AUR)](https://aur.archlinux.org/packages/millennium).
+
+### NixOS 
+
+We don't currently have a package for NixOS but it's somewhat in development in [#227](https://github.com/shdwmtr/millennium/issues/227).
+Feel free to contribute and help finish the package.
+
+<details>
+    <summary>Other Distributions</summary>
 
 ### Automatic
 **Shell (pre-built binary)**
@@ -43,7 +64,7 @@ Steam Snap & Steam Flatpak are Unsupported
 This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.sh). 
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/SteamClientHomebrew/Millennium/main/scripts/install.sh" | sh
+curl -fsSL "https://raw.githubusercontent.com/shdwmtr/millennium/main/scripts/install.sh" | sh
 ```
 
 You can then run Steam with Millennium from `~/.millennium/start.sh`
@@ -61,3 +82,6 @@ You can then run Steam with Millennium from `~/.millennium/start.sh`
 
 Optionally, you can also add `~/.millennium/ext/bin/` to `$PATH` to be able to globally run Millenniums config CLI, although you can alternatively just configure Millennium from Steam's UI (**Steam -> Settings -> Plugins & Updates & Themes**) 
 
+
+</details>
+</details>

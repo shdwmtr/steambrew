@@ -41,3 +41,6 @@ docs/build
 docs/node_modules
 api/credentials
 api/node_modules
+
+*/.env
+*/firebase.credentials.json
