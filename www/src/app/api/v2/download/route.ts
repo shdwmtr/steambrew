@@ -1,17 +1,16 @@
 import { Firebase } from '../../Firebase';
 
-const IncrementDownload = async (req) => {
+const IncrementDownload = async (requestBody) => {
 	return new Promise(async (resolve, reject) => {
-		const data = await Firebase.FromRepository(req.body.owner, req.body.repo);
+		const data = await Firebase.FromRepository(requestBody.owner, requestBody.repo);
 
 		if (!data.docs.length) {
 			reject("couldn't find doc from collection");
 		}
 
-		const doc = data.docs.at(0);
+		const doc = data.docs.at(0)!;
 		const count = isNaN(doc.data().download) ? 0 : doc.data().download + 1;
 
-		// update the download count
 		doc.ref.update({ download: count });
 
 		resolve({
@@ -27,7 +26,7 @@ export async function POST(request: Request) {
 	const json = await request.json();
 
 	try {
-		const data = await GetThemeUpdate(json);
+		const data = await IncrementDownload(json);
 		return new Response(JSON.stringify(data), {
 			status: 200,
 		});
