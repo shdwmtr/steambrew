@@ -2,7 +2,7 @@
 
 import '../css/index.css'
 import '../css/home.css'
-import { useLayoutEffect, useState, useRef, useEffect } from 'react'
+import { useLayoutEffect, useState, useRef, useEffect, useCallback } from 'react'
 
 import RenderFooter from './components/FooterComponent'
 import RenderHeader from './components/HeaderComponent'
@@ -11,6 +11,82 @@ import CountUp from 'react-countup'
 import { CodeBlock } from './utils/CodeBlock';
 
 import { StartAnimation } from './components/RenderAnimation'
+
+export const useScrollNavigation = (refsArray) => {
+  const [navigatorIndex, setNavigatorIndex] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const jumpTo = useCallback((targetRef) => {
+    // If a number is passed, use it as an index
+    const targetRefObject = typeof targetRef === 'number' 
+      ? refsArray[Math.max(0, Math.min(targetRef, refsArray.length - 1))] 
+      : targetRef;
+
+    if (targetRefObject && targetRefObject.current) {
+      // Prevent multiple simultaneous scrolls
+      if (isScrolling) return;
+
+      setIsScrolling(true);
+
+      // Special handling for video elements
+      if (targetRefObject.current.tagName === 'VIDEO') {
+        const videoElement = targetRefObject.current;
+        videoElement.currentTime = 0;
+      }
+
+      // Scroll to the target
+      targetRefObject.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center', 
+        inline: 'center' 
+      });
+
+      // Find and update the current index
+      const newIndex = refsArray.findIndex(ref => ref === targetRefObject);
+      if (newIndex !== -1) {
+        setNavigatorIndex(newIndex);
+      }
+
+      // Reset scrolling state after animation
+      setTimeout(() => { 
+        setIsScrolling(false); 
+      }, 800);
+    }
+  }, [refsArray, isScrolling]);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      // Prevent default scroll behavior
+      e.preventDefault();
+
+      // Prevent scrolling if already in progress
+      if (isScrolling) return;
+
+      // Determine scroll direction
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const nextIndex = Math.max(0, Math.min(refsArray.length - 1, navigatorIndex + direction));
+
+      // If no change in index, do nothing
+      if (nextIndex === navigatorIndex) return;
+
+      // Jump to the next ref
+      jumpTo(nextIndex);
+    };
+
+    // Add event listeners
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [jumpTo, navigatorIndex, refsArray, isScrolling]);
+
+  return { 
+    navigatorIndex, 
+    jumpTo 
+  };
+};
 
 function RenderHome() 
 {
@@ -48,6 +124,8 @@ function RenderHome()
   const contributorsRef = useRef(null);
   const footerRef       = useRef(null);
 
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   const handleScroll = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
@@ -61,48 +139,26 @@ function RenderHome()
 
     setIsFloating((window.scrollY || document.documentElement.scrollTop) > navbar.clientHeight);
   };
-  
-  const refsArray = [mainContentRef, videoRef, feature1Ref, feature2Ref, contributorsRef, footerRef];
-  
+
   useEffect(() => {
-    let isScrolling = false;
-    let currentIndex = 0;
-
-    const handleWheel = (e) => {
-      e.preventDefault();
-      
-      if (isScrolling) 
-        return;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const nextIndex = Math.max(0, Math.min(refsArray.length - 1, currentIndex + direction));
-      
-      if (nextIndex === currentIndex) 
-        return;
-      
-      currentIndex = nextIndex;
-      const targetRef = refsArray[nextIndex];
-      
-      if (targetRef && targetRef.current) {
-        isScrolling = true;
-
-        if (targetRef.current.tagName === 'VIDEO') {
-          targetRef.current.currentTime = 0;
-        }
-
-        targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        setTimeout(() => { isScrolling = false; }, 800); 
-      }
+    const checkDeviceByScreenWidth = () => {
+      const width = window.innerWidth;
+      setScreenWidth(width);
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('resize', checkDeviceByScreenWidth);
     window.addEventListener('scroll', handleScroll);
-    
+
+    checkDeviceByScreenWidth();
+
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('resize', checkDeviceByScreenWidth);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const refsArray = [mainContentRef, videoRef, feature1Ref, feature2Ref, contributorsRef, footerRef];
+  const { navigatorIndex, jumpTo } = useScrollNavigation(refsArray);
 
   return (
     <>
@@ -122,16 +178,20 @@ function RenderHome()
       <main id="main-page-content" className='home-main-page-content'>
         <section id="home-hero-section" className="page-section">
 
-        <canvas id="bgCanvas"></canvas>
-        <canvas id="terrainCanvas"></canvas>
-        <div className="landscape">
-          <div className="landscapeItem mountains background"></div>
-          <div className="landscapeItem mountains midground"></div>
-          <div className="landscapeItem mountains foreground"></div>
-          <div className="landscapeItem trees background"></div>
-          <div className="landscapeItem trees midground"></div>
-          <div className="landscapeItem trees foreground"></div>
-        </div>
+        {screenWidth >= 950 && 
+          <>
+            <canvas id="bgCanvas"></canvas>
+            <canvas id="terrainCanvas"></canvas>
+            <div className="landscape">
+              <div className="landscapeItem mountains background"></div>
+              <div className="landscapeItem mountains midground"></div>
+              <div className="landscapeItem mountains foreground"></div>
+              <div className="landscapeItem trees background"></div>
+              <div className="landscapeItem trees midground"></div>
+              <div className="landscapeItem trees foreground"></div>
+            </div>
+          </>    
+        }
 
           <div className="page-section-inner">
             <div id="hero-top-container" className="flex-container align-center justify-center direction-column">
@@ -177,13 +237,15 @@ function RenderHome()
         <section id="home-additional-features" className="page-section">     
           <div className="page-section-inner intro-section">    
 
-          <video ref={videoRef} autoPlay muted loop playsInline>
-            <source src="https://github.com/user-attachments/assets/ea9028d1-ecfd-4d95-b199-33bb6b657bff" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div className="showCaseContainer">
+            <video ref={videoRef} autoPlay muted loop playsInline>
+              <source src="https://github.com/user-attachments/assets/ea9028d1-ecfd-4d95-b199-33bb6b657bff" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
 
-          <div className="features-view" style={{height: 'auto !important'}}>
-            <div className="feature" id="feature-1" ref={feature1Ref} style={{height: 'auto !important'}}>
+          <div className="features-view">
+            <div className="feature" id="feature-1" ref={feature1Ref}>
               <div className="theme-showcase hide-mobile">
                 <div className="theme-showcase-inner">
                   <div className="crossfade-image" />
@@ -211,7 +273,7 @@ function RenderHome()
                 </div>
                 <div className='bottom-bar'></div>
               </div>
-              <div className="feature-info" style={{height: 'auto !important'}}>
+              <div className="feature-info" >
                 <h1 className="title">Themes</h1>
                 <p className="title-description" style={{fontSize: "16px"}}>Themes allow you to completely customize your client with CSS. You can either make your own theme, or download the wide variety of themes from our community.</p>
                 <a className="btn btn-secondary" href="/themes">
@@ -219,8 +281,8 @@ function RenderHome()
                 </a>
               </div>
             </div>
-            <div className="feature" id="feature-2" ref={feature2Ref} style={{height: 'auto !important'}}>
-              <div className="feature-info" style={{height: 'auto !important'}}>
+            <div className="feature" id="feature-2" ref={feature2Ref} >
+              <div className="feature-info">
                 <h1 className="title">Plugins</h1>
                 <p className="title-description" style={{fontSize: "16px"}}>Millennium comes with a builtin plugin loader and plugin API. Plugins can increase the functionality and user experience of the app through JavaScript. Write your own or download plugins made by the community.</p>
                 <a className="btn btn-secondary" href="/plugins">
@@ -286,41 +348,14 @@ function RenderHome()
               </div>
             </div>
           </div>
-
-            {/* <h1 className="title text-center">And More...</h1>
-            <p className="title-description text-center">Millennium also offers a varienty of additional quality of life features right out the box!</p>
-            <div id="additional-features" className="flex-container align-center justify-center wrap">
-              <div className="additional-feature" id="additional-feature-emotes">
-                <div className="additional-feature-icon">
-                  <img src="https://i.imgur.com/G94FyIo.png" alt="" />
-                </div>    
-                <h5>Integration</h5>
-                <p>As we are intergrated directly into the Steam® client and doesn't run as a stand-alone process</p>
-              </div>
-              <div className="additional-feature" id="additional-feature-security">
-                <div className="additional-feature-icon">
-                  <img src="https://i.imgur.com/K4Nan9a.png" alt="" />
-                </div>
-                <h5>Performance</h5>
-                <p>Millennium has granular control over memory and processor usage, ensuring optimized performance and efficient resource management.</p>
-              </div>
-              <div className="additional-feature" id="additional-feature-editor">
-                <div className="additional-feature-icon">
-                  <img src="https://i.imgur.com/eVD1FRR.png" alt="" />
-                </div>
-                <h5>Safety</h5>
-                <p>Our developers manually review all code on the community hub to ensure there is nothing malicious</p>
-              </div>
-            </div> */}
-
-            <div className="open-source-section">
+            <div className="open-source-section" ref={contributorsRef}>
               <h1 className="title text-center">Open Source ❤️</h1>
               <p className="title-description text-center">Community driven, made by beautiful people just like you.</p>
 
               {
                 stat?.contributors && (
                   <div className="contributors-container">
-                    <div className="contributors-list" ref={contributorsRef}>
+                    <div className="contributors-list">
                       {stat.contributors.map((contributor, index) => (
                         <a key={index} href={contributor.html_url} target="_blank" rel="noreferrer">
                           <div key={index} className="contributor">
@@ -338,6 +373,13 @@ function RenderHome()
       </main>
     <RenderFooter/>
     <div ref={footerRef} />
+
+    <div className="navigatorSidebar">
+      {refsArray.map((ref, index) => (
+        <div key={index} className={`navigatorItem ${index == navigatorIndex ? "selected" : ""}`} onClick={() => jumpTo(ref)}>
+        </div>
+      ))}
+    </div>
     </>
   );
 }

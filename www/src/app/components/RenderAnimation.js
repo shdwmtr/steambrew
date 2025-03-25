@@ -8,6 +8,10 @@ export const StartAnimation = () => {
         return
     }
 
+    if (window.screen.width <= 950) {
+        return
+    }
+
     window.HAS_ANIMATED = true;
 
 
