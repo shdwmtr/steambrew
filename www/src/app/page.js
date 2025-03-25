@@ -170,7 +170,7 @@ function RenderHome()
     <RenderHeader/>
 
       <style>
-        {`.footer-container footer#section-footer { background: #0a0a0a !important; }`}
+        {`.footer-container footer#section-footer { background: #0a0a0a !important; } html { overflow: hidden !important; }`}
       </style>
 
       <div ref={mainContentRef} />
