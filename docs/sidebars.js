@@ -105,10 +105,10 @@ module.exports = {
 			},
 			items: [
 				'users/installing',
-				'users/uninstalling',
 				'users/getting-started',
 				'users/trouble-shooting',
 				'users/faq',
+				'users/uninstalling'
 			],
 		},
 		{

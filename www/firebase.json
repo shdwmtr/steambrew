@@ -1,22 +1,12 @@
 {
-  "hosting": {
-    "errorPages": {
-      "500": "/public/500.html"
-    },
-    "source": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/api/**",
-        "function": "api"
-      }
-    ],
-    "frameworksBackend": {
-      "region": "us-central1"
-    }
-  }
+	"hosting": {
+		"errorPages": {
+			"500": "/public/500.html"
+		},
+		"source": ".",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+		"frameworksBackend": {
+			"region": "us-central1"
+		}
+	}
 }
