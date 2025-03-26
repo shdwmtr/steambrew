@@ -1,3 +1,4 @@
+import { CacheMiddleware } from '../../CacheHandler';
 import { Firebase } from '../../Firebase';
 
 const IncrementDownload = async (requestBody) => {
@@ -26,7 +27,10 @@ export async function POST(request: Request) {
 	const json = await request.json();
 
 	try {
-		return Response.json(await IncrementDownload(json), {
+		const response = await IncrementDownload(json);
+		global.requestCache.set(request.url, response);
+
+		return Response.json(response, {
 			status: 200,
 		});
 	} catch (error) {

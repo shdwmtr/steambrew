@@ -6,6 +6,7 @@ dotenv.config();
 import { GraphQLFeatured } from './GraphQLHandler';
 import { GithubGraphQL } from './GraphQLInterop';
 import { Firebase } from '../Firebase';
+import { CacheMiddleware } from '../CacheHandler';
 
 function getDate(unixTime: number): string {
 	const d = new Date(unixTime * 1000);
@@ -83,5 +84,8 @@ async function getFeatured(): Promise<any[]> {
 }
 
 export async function GET(request: Request) {
-	return Response.json(await getFeatured());
+	const onRequest = async () => {
+		return Response.json(await getFeatured());
+	};
+	return await CacheMiddleware(request, onRequest);
 }

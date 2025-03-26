@@ -1,3 +1,4 @@
+import { CacheMiddleware } from '@/app/api/CacheHandler';
 import { StorageBucket } from '../../../Firebase';
 import { FetchPlugins } from '../../plugins/route';
 
@@ -30,15 +31,18 @@ const FindPlugin = async (id: string) => {
 };
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
-	const { slug } = await params;
+	const onRequest = async () => {
+		const { slug } = await params;
 
-	try {
-		return Response.json(await FindPlugin(slug), {
-			status: 200,
-		});
-	} catch (error) {
-		return new Response(error.message, {
-			status: 404,
-		});
-	}
+		try {
+			return Response.json(await FindPlugin(slug), {
+				status: 200,
+			});
+		} catch (error) {
+			return new Response(error.message, {
+				status: 404,
+			});
+		}
+	};
+	return await CacheMiddleware(request, onRequest);
 }

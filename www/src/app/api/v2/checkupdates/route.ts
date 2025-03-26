@@ -1,3 +1,4 @@
+import { CacheMiddleware } from '../../CacheHandler';
 import { GraphQLUpdates } from '../GraphQLHandler';
 import { GithubGraphQL } from '../GraphQLInterop';
 
@@ -20,15 +21,18 @@ async function CheckForUpdates(requestBody) {
 }
 
 export async function POST(request: Request) {
-	const json = await request.json();
+	const onRequest = async () => {
+		const json = await request.json();
 
-	try {
-		return Response.json(await CheckForUpdates(json), {
-			status: 200,
-		});
-	} catch (error) {
-		return new Response(error, {
-			status: 404,
-		});
-	}
+		try {
+			return Response.json(await CheckForUpdates(json), {
+				status: 200,
+			});
+		} catch (error) {
+			return new Response(error, {
+				status: 404,
+			});
+		}
+	};
+	return await CacheMiddleware(request, onRequest);
 }

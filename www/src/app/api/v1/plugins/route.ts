@@ -3,6 +3,7 @@ import { GetPluginData, PluginDataProps } from './GetPluginData';
 import { GetPluginMetadata } from './GetPluginMetadata';
 import { RetrievePluginList } from './GetPluginList';
 import { headers } from 'next/headers';
+import { CacheMiddleware } from '../../CacheHandler';
 
 export const FetchPlugins = async () => {
 	return new Promise<PluginDataProps[]>(async (resolve, reject) => {
@@ -42,5 +43,8 @@ export const FetchPlugins = async () => {
 };
 
 export async function GET(request: Request) {
-	return Response.json(await FetchPlugins());
+	const onRequest = async () => {
+		return Response.json(await FetchPlugins());
+	};
+	return await CacheMiddleware(request, onRequest);
 }

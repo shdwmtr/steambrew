@@ -1,15 +1,6 @@
-import admin from 'firebase-admin';
-
-if (!admin.apps.length) {
-	admin.initializeApp({
-		credential: admin.credential.cert(require('@/../firebase.credentials.json')),
-		storageBucket: 'millennium-d9ce0.appspot.com',
-	});
-}
-
-export const firebaseAdmin = admin;
-export const Database = firebaseAdmin.firestore();
-export const StorageBucket = firebaseAdmin.storage().bucket();
+export const firebaseAdmin = global.firebaseAdmin;
+export const Database = global.Database;
+export const StorageBucket = global.StorageBucket;
 
 export const Firebase = {
 	Get: () => {

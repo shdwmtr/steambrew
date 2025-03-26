@@ -1,6 +1,7 @@
 import { Firebase } from '../../../Firebase';
 import { GithubGraphQL } from '../../GraphQLInterop';
 import { GraphQLRepository } from '../../GraphQLHandler';
+import { CacheMiddleware } from '@/app/api/CacheHandler';
 
 interface DiscordInfo {
 	name?: string;
@@ -118,15 +119,18 @@ async function getDetails(id: string): Promise<RepositoryData> {
 }
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
-	const { slug } = await params;
+	const onRequest = async () => {
+		const { slug } = await params;
 
-	try {
-		return Response.json(await getDetails(slug), {
-			status: 200,
-		});
-	} catch (error) {
-		return new Response(error.message, {
-			status: 404,
-		});
-	}
+		try {
+			return Response.json(await getDetails(slug), {
+				status: 200,
+			});
+		} catch (error) {
+			return new Response(error.message, {
+				status: 404,
+			});
+		}
+	};
+	return await CacheMiddleware(request, onRequest);
 }
