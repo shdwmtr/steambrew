@@ -4,91 +4,101 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Steam Homebrew',
-  tagline: 'Creating, developing, and maintaining open source addons for the Steam® Client',
-  favicon: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
-  url: 'https://docs.steambrew.app',
-  baseUrl: '/',
-  organizationName: 'SteamClientHomebrew',
-  projectName: 'Millennium', 
-  onBrokenLinks: "log",
-  onBrokenMarkdownLinks: 'warn',
+	title: 'Steam Homebrew',
+	tagline: 'Creating, developing, and maintaining open source addons for the Steam® Client',
+	favicon: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
+	url: 'https://docs.steambrew.app',
+	baseUrl: '/',
+	organizationName: 'SteamClientHomebrew',
+	projectName: 'Millennium',
+	onBrokenLinks: 'log',
+	onBrokenMarkdownLinks: 'warn',
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
-  markdown: {
-    format: 'md',
-  },
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en'],
+	},
+	markdown: {
+		format: 'md',
+	},
 
-  presets: [
-    [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          sidebarCollapsed: false,
-          path: './ui',
-          routeBasePath: "/", // Serve the docs at the site's root
-        },
-        blog: false,
-        theme: {
-          customCss: './styles.css'
-        },
-      }),
-    ],
-  ],
-  themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-        indexBlog: false,
-        docsRouteBasePath: "/ui",
-      },
-    ]
-  ],
+	presets: [
+		[
+			'classic',
+			/** @type {import('@docusaurus/preset-classic').Options} */
+			({
+				docs: {
+					sidebarPath: './sidebars.js',
+					sidebarCollapsed: false,
+					path: './ui',
+					routeBasePath: '/', // Serve the docs at the site's root
+				},
+				blog: false,
+				theme: {
+					customCss: './styles.css',
+				},
+			}),
+		],
+	],
+	themes: [
+		[
+			require.resolve('@easyops-cn/docusaurus-search-local'),
+			{
+				hashed: true,
+				indexBlog: false,
+				docsRouteBasePath: '/ui',
+			},
+		],
+	],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
-      colorMode: {
-        defaultMode: 'dark',
-        disableSwitch: true,
-        respectPrefersColorScheme: true,
-      },
-      navbar: {
-        title: 'Steam Homebrew.',
-        logo: {
-          alt: 'Steam Homebrew Logo',
-          src: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
-        },
-        items: [
-          {
-            href: 'https://github.com/shdwmtr/steambrew/tree/main/docs',
-            label: 'Contribute',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/shdwmtr/millennium',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            html: `<div class="footer-container">
+	themeConfig:
+		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+		({
+			// Replace with your project's social card
+			image: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
+			colorMode: {
+				defaultMode: 'dark',
+				disableSwitch: true,
+				respectPrefersColorScheme: true,
+			},
+			navbar: {
+				title: 'Steam Homebrew.',
+				logo: {
+					alt: 'Steam Homebrew Logo',
+					src: 'https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/www/public/favicon.ico',
+				},
+				items: [
+					{
+						href: 'https://steambrew.app/themes',
+						label: 'Themes',
+						position: 'right',
+					},
+					{
+						href: 'https://steambrew.app/plugins',
+						label: 'Plugins',
+						position: 'right',
+					},
+					{
+						href: 'https://github.com/shdwmtr/steambrew/tree/main/docs',
+						label: 'Contribute',
+						position: 'right',
+					},
+					{
+						href: 'https://github.com/shdwmtr/millennium',
+						label: 'GitHub',
+						position: 'right',
+					},
+				],
+			},
+			footer: {
+				style: 'dark',
+				links: [
+					{
+						html: `<div class="footer-container">
             <footer id="section-footer" class="page-section">
               <div class="page-section-inner">
                 <section id="footer-top" class="flex-container hide-mobile">
@@ -157,16 +167,16 @@ const config = {
             </footer>
           </div>
               `,
-          }
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Steam Client Homebrew.`,
-      },
-      prism: {
-        // theme: prismThemes.github,
-        darkTheme: prismThemes.oneDark,
-        additionalLanguages: ['powershell', 'json', 'bash']
-      },
-    }),
+					},
+				],
+				copyright: `Copyright © ${new Date().getFullYear()} Steam Client Homebrew.`,
+			},
+			prism: {
+				// theme: prismThemes.github,
+				darkTheme: prismThemes.oneDark,
+				additionalLanguages: ['powershell', 'json', 'bash'],
+			},
+		}),
 };
 
 export default config;
