@@ -42,7 +42,7 @@ jobs:
             - name: Set up Google Application Credentials
               run: |
                   mkdir -p ./api/credentials
-                  echo "$FIREBASE_CREDENTIALS" | base64 -d > ./api/credentials/cert.json
+                  echo "$FIREBASE_CREDENTIALS" | base64 -d > ./www/firebase.credentials.json
               env:
                   FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
