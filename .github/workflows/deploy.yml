@@ -1,79 +1,72 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+    checks: write
+    contents: read
+    pull-requests: write
 
 jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
+    build_and_deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '20'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+            - name: Install pnpm
+              run: npm install -g pnpm
 
-      - name: Install dependencies and build
-        run: |
-          cd www
-          pnpm install
-          cd ../docs
-          pnpm install
-          cd ../api
-          npm install
+            - name: Install dependencies and build
+              run: |
+                  cd www
+                  pnpm install
+                  cd ../docs
+                  pnpm install
+                  cd ../api
+                  npm install
 
-      - name: Install Firebase Tools
-        run: | 
-          npm install -g firebase-tools
-          firebase experiments:enable webframeworks
+            - name: Install Firebase Tools
+              run: |
+                  npm install -g firebase-tools
+                  firebase experiments:enable webframeworks
 
-      - name: Set up Google Application Credentials
-        run: |
-          mkdir -p ./api/credentials
-          echo "$FIREBASE_CREDENTIALS" | base64 -d > ./api/credentials/cert.json
-        env:
-          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+            - name: Set up Google Application Credentials
+              run: |
+                  mkdir -p ./api/credentials
+                  echo "$FIREBASE_CREDENTIALS" | base64 -d > ./api/credentials/cert.json
+              env:
+                  FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
 
-      - name: Setup Environment Variables
-        run: |
-          mkdir -p ./api
-          echo "$BEARER" > ./api/.env
-        env:
-          BEARER: ${{ secrets.BEARER }}
+            - name: Setup Environment Variables
+              run: |
+                  mkdir -p ./api
+                  echo "$BEARER" > ./api/.env
+              env:
+                  BEARER: ${{ secrets.BEARER }}
 
-      - name: Deploy Documentation
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: | 
-          cd docs
-          pnpm run build
-          firebase deploy --only hosting --token $FIREBASE_TOKEN
+            - name: Deploy Documentation
+              env:
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+              run: |
+                  cd docs
+                  pnpm run build
+                  firebase deploy --only hosting --token $FIREBASE_TOKEN
 
-      - name: Deploy API
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: | 
-          cd api
-          firebase deploy --only functions:api --project=steam-brew --token $FIREBASE_TOKEN
-
-      - name: Deploy Main Site
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: | 
-          cd www
-          pnpm run build
-          firebase deploy --only hosting --token $FIREBASE_TOKEN
+            - name: Deploy Main Site
+              env:
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+              run: |
+                  cd www
+                  pnpm run build
+                  firebase deploy --only hosting --token $FIREBASE_TOKEN
