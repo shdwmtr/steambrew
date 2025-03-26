@@ -1,6 +1,6 @@
 import { CacheMiddleware } from '@/app/api/CacheHandler';
 import { StorageBucket } from '../../../Firebase';
-import { FetchPlugins } from '../../plugins/route';
+import { FetchPlugins } from '../../plugins/GetPlugins';
 
 const FindPlugin = async (id: string) => {
 	const plugin = (await FetchPlugins()).find((plugin) => plugin.id === id);

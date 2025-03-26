@@ -49,7 +49,7 @@ jobs:
             - name: Setup Environment Variables
               run: |
                   mkdir -p ./api
-                  echo "$BEARER" > ./api/.env
+                  echo "$BEARER" > ./www/.env
               env:
                   BEARER: ${{ secrets.BEARER }}
 
