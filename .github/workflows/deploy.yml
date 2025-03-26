@@ -33,8 +33,6 @@ jobs:
                   pnpm install
                   cd ../docs
                   pnpm install
-                  cd ../api
-                  npm install
 
             - name: Install Firebase Tools
               run: |
