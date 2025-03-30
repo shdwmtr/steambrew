@@ -68,7 +68,14 @@ This installer is entirely open source and we encourage the community audit the 
 curl -fsSL "https://raw.githubusercontent.com/shdwmtr/millennium/main/scripts/install.sh" | sudo sh
 ```
 
+</details>
+
+&nbsp;
+
+## Post Installation
+
 If you are on Arch based linux distributions, you can run `millennium patch`, otherwise you can download the [Millennium start script](https://github.com/shdwmtr/millennium/blob/main/scripts/posix/start.sh) and change the `/usr/lib/steam/steam` to your steam path (`whereis steam`)
 
-</details>
+You can then run this start script to launch Steam with Millennium.
+
 </details>

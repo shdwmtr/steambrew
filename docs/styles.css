@@ -524,3 +524,7 @@ details {
 [class*='collapsibleContent'] {
 	border-top: 1px solid #222222 !important;
 }
+
+ul {
+	color: var(--paragraph-color) !important;
+}
