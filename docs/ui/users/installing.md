@@ -3,7 +3,6 @@ sidebar_position: 1
 description: Quick guide to getting Millennium.
 ---
 
-
 # Installing
 
 A quick guide to installing Millennium.
@@ -11,22 +10,23 @@ A quick guide to installing Millennium.
 <details>
   <summary>Windows</summary>
 
-
 ### Automatic
+
 To install Millennium on windows, we use a PowerShell installer script. To run the script, open PowerShell, paste the following command, and press enter.
 
-This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.ps1). 
+This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.ps1).
 
 **Millennium is entirely portable, and the following script doesn't change any system configuration.**
 
 ```powershell
 iwr -useb "https://steambrew.app/install.ps1" | iex
 ```
+
 <!-- ![Installing Millennium Preview](https://raw.githubusercontent.com/shdwmtr/steambrew/refs/heads/main/static/install.gif) -->
 
 ### Manual
 
-Start by downloading the Millennium's Windows assets from [this repository](https://github.com/SteamClientHomebrew/Millennium/releases/latest) under the name ` millennium-v0.0.0-windows-x86_64.zip `. Simply put all files into your Steam directory, which you can find by running the PowerShell command below
+Start by downloading the Millennium's Windows assets from [this repository](https://github.com/SteamClientHomebrew/Millennium/releases/latest) under the name `millennium-v0.0.0-windows-x86_64.zip`. Simply put all files into your Steam directory, which you can find by running the PowerShell command below
 
 ```powershell
 (Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam" -Name "InstallPath").InstallPath
@@ -50,7 +50,7 @@ Looking to package Millennium for your favorite distribution? It should be a rel
 
 We officially offer support for Millennium on the [Arch User Repository (AUR)](https://aur.archlinux.org/packages/millennium).
 
-### NixOS 
+### NixOS
 
 We don't currently have a package for NixOS but it's somewhat in development in [#227](https://github.com/shdwmtr/millennium/issues/227).
 Feel free to contribute and help finish the package.
@@ -59,29 +59,16 @@ Feel free to contribute and help finish the package.
     <summary>Other Distributions</summary>
 
 ### Automatic
+
 **Shell (pre-built binary)**
 
-This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.sh). 
+This installer is entirely open source and we encourage the community audit the [source code](https://github.com/SteamClientHomebrew/Millennium/blob/main/scripts/install.sh).
 
 ```bash
-curl -fsSL "https://raw.githubusercontent.com/shdwmtr/millennium/main/scripts/install.sh" | sh
+curl -fsSL "https://raw.githubusercontent.com/shdwmtr/millennium/main/scripts/install.sh" | sudo sh
 ```
 
-You can then run Steam with Millennium from `~/.millennium/start.sh`
-
-### Manual
-
-Start by downloading the Millennium's Linux assets from [this repository](https://github.com/SteamClientHomebrew/Millennium/releases/latest) under the name ` millennium-v0.0.0-linux-x86_64.tar.gz `. Extract and put all files in `~/.millennium/`. Then make the following files executable 
-* `~/.millennium/ext/data/cache/bin/python3.11` (Used to manage plugin packages; is not daemon)
-* `~/.millennium/ext/bin/millennium`
-* `~/.millennium/start.sh`
-
-by running `chmod +x path/to/file`
-
-You can then run Steam with Millennium from `~/.millennium/start.sh`
-
-Optionally, you can also add `~/.millennium/ext/bin/` to `$PATH` to be able to globally run Millenniums config CLI, although you can alternatively just configure Millennium from Steam's UI (**Steam -> Settings -> Plugins & Updates & Themes**) 
-
+If you are on Arch based linux distributions, you can run `millennium patch`, otherwise you can download the [Millennium start script](https://github.com/shdwmtr/millennium/blob/main/scripts/posix/start.sh) and change the `/usr/lib/steam/steam` to your steam path (`whereis steam`)
 
 </details>
 </details>
