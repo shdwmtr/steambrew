@@ -20,7 +20,18 @@ const config = {
 
 	i18n: {
 		defaultLocale: 'en',
-		locales: ['en'],
+		locales: ['en', 'zh-CN'],
+        localeConfigs: {
+            en: {
+                label: 'English',
+                htmlLang: 'en-US',
+            },
+            'zh-CN': {
+                label: '简体中文',
+                htmlLang: 'zh-CN',
+                path: "zh-CN"
+            }
+        }
 	},
 	markdown: {
 		format: 'md',
@@ -92,6 +103,10 @@ const config = {
 						label: 'GitHub',
 						position: 'right',
 					},
+                    {
+                        type: 'localeDropdown',
+                        position: 'right',
+                    }
 				],
 			},
 			footer: {

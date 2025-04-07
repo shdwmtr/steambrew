@@ -1,0 +1,94 @@
+{
+  "version.label": {
+    "message": "下一个",
+    "description": "The label for version current"
+  },
+  "sidebar.homeSidebar.category.User Documentation": {
+    "message": "用户文档",
+    "description": "The label for category User Documentation in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.User Documentation.link.generated-index.description": {
+    "message": "Millennium 入门指南",
+    "description": "The generated-index page description for category User Documentation in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Development": {
+    "message": "开发",
+    "description": "The label for category Development in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Development.link.generated-index.description": {
+    "message": "让我们了解如何为 Millennium 社区做贡献！",
+    "description": "The generated-index page description for category Development in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Creating Themes": {
+    "message": "创建主题",
+    "description": "The label for category Creating Themes in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Creating Themes.link.generated-index.description": {
+    "message": "为 Millennium 创建主题既有趣又有成就感。让我们开始吧！",
+    "description": "The generated-index page description for category Creating Themes in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Creating Plugins": {
+    "message": "创建插件",
+    "description": "The label for category Creating Plugins in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Creating Plugins.link.generated-index.description": {
+    "message": "为 Millennium 开发插件既充满乐趣又富有成就感，让我们开始吧！",
+    "description": "The generated-index page description for category Creating Plugins in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Python Reference": {
+    "message": "Python 参考",
+    "description": "The label for category Python Reference in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Python Reference.link.generated-index.description": {
+    "message": "为 Millennium 开发插件既充满乐趣又富有成就感，让我们开始吧！",
+    "description": "The generated-index page description for category Python Reference in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.TypeScript Reference": {
+    "message": "TypeScript 参考",
+    "description": "The label for category TypeScript Reference in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.TypeScript Reference.link.generated-index.description": {
+    "message": "为 Millennium 开发插件既充满乐趣又富有成就感，让我们开始吧！",
+    "description": "The generated-index page description for category TypeScript Reference in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.@steambrew/client": {
+    "message": "@steambrew/client",
+    "description": "The label for category @steambrew/client in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.@steambrew/client.link.generated-index.description": {
+    "message": "一个用于 Steam 客户端侧的插件工具库。",
+    "description": "The generated-index page description for category @steambrew/client in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.UI Components": {
+    "message": "UI 组件",
+    "description": "The label for category UI Components in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Core": {
+    "message": "Core",
+    "description": "The label for category Core in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Enums": {
+    "message": "枚举",
+    "description": "The label for category Enums in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Functions": {
+    "message": "函数",
+    "description": "The label for category Functions in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Types": {
+    "message": "类型",
+    "description": "The label for category Types in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.Variables": {
+    "message": "变量",
+    "description": "The label for category Variables in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.@steambrew/webkit": {
+    "message": "@steambrew/webkit",
+    "description": "The label for category @steambrew/webkit in sidebar homeSidebar"
+  },
+  "sidebar.homeSidebar.category.@steambrew/webkit.link.generated-index.description": {
+    "message": "一个用于 Steam 网页/服务端的插件工具库。",
+    "description": "The generated-index page description for category @steambrew/webkit in sidebar homeSidebar"
+  }
+}
