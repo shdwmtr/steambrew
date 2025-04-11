@@ -47,6 +47,11 @@ const config = {
 					sidebarCollapsed: false,
 					path: './ui',
 					routeBasePath: '/', // Serve the docs at the site's root
+                    editUrl: ({version, versionDocsDirPath, docPath, permalink, locale}) => {
+                        let githubDocPath = 'https://github.com/shdwmtr/steambrew/tree/main/docs';
+                        if (locale == 'en') return `${githubDocPath}/${versionDocsDirPath}/${docPath}`;
+                        return `${githubDocPath}/i18n/${locale}/docusaurus-plugin-content-docs/${version}/${docPath}`;
+                    },
 				},
 				blog: false,
 				theme: {
