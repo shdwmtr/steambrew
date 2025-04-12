@@ -75,5 +75,6 @@ curl -fsSL "https://raw.githubusercontent.com/shdwmtr/millennium/main/scripts/in
 ## Post Installation
 
 Run `millennium patch`, this will patch your Steam start script to bootstrap Millennium.
+You can then start Steam as normal!
 
 </details>
