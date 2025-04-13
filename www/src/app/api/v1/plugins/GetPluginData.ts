@@ -20,6 +20,7 @@ export interface PluginDataProps {
 	stargazerCount: number;
 	diskUsage: string;
 	commitDate: string;
+	commitMessage: string;
 	repoName: string;
 	repoOwner: string;
 	id: string;
@@ -61,6 +62,7 @@ const GetPluginData = (pluginList) => {
                     commit: object(expression: "${repo.commit}") {
                         ... on Commit {
                             committedDate
+                            message
                         }
                     }
                     repoName: name
@@ -105,6 +107,7 @@ const GetPluginData = (pluginList) => {
 					stargazerCount: repo.stargazerCount,
 					diskUsage: FormatSize(repo.diskUsage),
 					commitDate: repo.commit.committedDate,
+					commitMessage: repo.commit.message,
 					repoName: repo.repoName,
 					repoOwner: repo.repoOwner.login,
 					id: repo.commitId.oid,
