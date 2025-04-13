@@ -59,7 +59,7 @@ jobs:
               run: |
                   cd docs
                   pnpm run build
-                  firebase deploy --only hosting --token $FIREBASE_TOKEN
+                  firebase deploy --only hosting --token $FIREBASE_TOKEN --force
 
             - name: Deploy Main Site
               env:
@@ -67,4 +67,4 @@ jobs:
               run: |
                   cd www
                   pnpm run build
-                  firebase deploy --only hosting --token $FIREBASE_TOKEN
+                  firebase deploy --only hosting --token $FIREBASE_TOKEN --force
