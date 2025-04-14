@@ -25,6 +25,7 @@ export interface PluginDataProps {
 	repoOwner: string;
 	id: string;
 
+	downloadSize?: string;
 	downloadCount?: number;
 	initCommitId?: string;
 	commitId?: string;
