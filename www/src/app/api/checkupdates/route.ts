@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { FetchPlugins } from '../v1/plugins/GetPlugins';
-import { CacheMiddleware } from '../CacheHandler';
 import { GraphQLUpdates } from '../v2/GraphQLHandler';
 import { GithubGraphQL } from '../v2/GraphQLInterop';
+import { GetPluginMetadata } from '../v1/plugins/GetPluginMetadata';
 
 interface PluginUpdateCheck {
 	id: string;
@@ -52,15 +52,24 @@ async function CheckForPluginUpdates(plugins: PluginUpdateCheck[]) {
 		return [];
 	}
 
-	const allPlugins = await FetchPlugins();
+	// Try to get cached data
+	const cachedAllPlugins = global.requestCache.get('allPlugins');
+	const cachedMetadata = global.requestCache.get('pluginMetadata');
 
-	// Fetch the latest metadata from GitHub
-	const response = await fetch('https://raw.githubusercontent.com/shdwmtr/plugdb/refs/heads/main/metadata.json');
-	if (!response.ok) {
-		throw new Error('Failed to fetch metadata');
+	let allPlugins, metadata;
+
+	if (cachedAllPlugins && cachedMetadata) {
+		console.log('Using cached data');
+
+		allPlugins = cachedAllPlugins;
+		metadata = cachedMetadata;
+	} else {
+		[allPlugins, metadata] = await Promise.all([FetchPlugins(), GetPluginMetadata()]);
+
+		// Cache the results for 1 hour
+		global.requestCache.set('allPlugins', allPlugins, 3600);
+		global.requestCache.set('pluginMetadata', metadata, 3600);
 	}
-
-	const metadata: PluginMetadata[] = await response.json();
 
 	// Check update status for all plugins
 	const pluginStatuses: PluginUpdateStatus[] = plugins.map((plugin) => {
