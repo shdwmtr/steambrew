@@ -59,8 +59,6 @@ async function CheckForPluginUpdates(plugins: PluginUpdateCheck[]) {
 	let allPlugins, metadata;
 
 	if (cachedAllPlugins && cachedMetadata) {
-		console.log('Using cached data');
-
 		allPlugins = cachedAllPlugins;
 		metadata = cachedMetadata;
 	} else {
