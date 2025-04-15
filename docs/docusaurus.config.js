@@ -20,7 +20,18 @@ const config = {
 
 	i18n: {
 		defaultLocale: 'en',
-		locales: ['en'],
+		locales: ['en', 'zh-CN'],
+        localeConfigs: {
+            en: {
+                label: 'English',
+                htmlLang: 'en-US',
+            },
+            'zh-CN': {
+                label: '简体中文',
+                htmlLang: 'zh-CN',
+                path: "zh-CN"
+            }
+        }
 	},
 	markdown: {
 		format: 'md',
@@ -36,6 +47,11 @@ const config = {
 					sidebarCollapsed: false,
 					path: './ui',
 					routeBasePath: '/', // Serve the docs at the site's root
+                    editUrl: ({version, versionDocsDirPath, docPath, permalink, locale}) => {
+                        let githubDocPath = 'https://github.com/shdwmtr/steambrew/tree/main/docs';
+                        if (locale == 'en') return `${githubDocPath}/${versionDocsDirPath}/${docPath}`;
+                        return `${githubDocPath}/i18n/${locale}/docusaurus-plugin-content-docs/${version}/${docPath}`;
+                    },
 				},
 				blog: false,
 				theme: {
@@ -92,6 +108,10 @@ const config = {
 						label: 'GitHub',
 						position: 'right',
 					},
+                    {
+                        type: 'localeDropdown',
+                        position: 'right',
+                    }
 				],
 			},
 			footer: {
