@@ -98,11 +98,11 @@ export async function POST(request: Request) {
 		const [themeStatuses, pluginStatuses] = await Promise.all([
 			CheckForThemeUpdates(json?.themes).catch((error) => {
 				console.error('Error checking theme updates:', error);
-				return { error: 'Failed to check theme updates' };
+				return { error: 'Failed to check theme updates: ' + String(error) };
 			}),
 			CheckForPluginUpdates(json?.plugins).catch((error) => {
 				console.error('Error checking plugin updates:', error);
-				return { error: 'Failed to check plugin updates' };
+				return { error: 'Failed to check plugin updates: ' + String(error) };
 			}),
 		]);
 
