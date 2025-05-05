@@ -39,6 +39,7 @@ next-env.d.ts
 .docusaurus
 docs/build
 docs/node_modules
+docs/pnpm-workspace.yaml
 api/credentials
 api/node_modules
 
