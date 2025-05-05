@@ -162,6 +162,7 @@ module.exports = {
 								slug: '/developers/plugins/python',
 							},
 							items: [
+                                'developers/plugins/python/plugin-class',
 								'developers/plugins/python/ready',
 								'developers/plugins/python/steam-path',
 								'developers/plugins/python/call-method',
@@ -170,7 +171,8 @@ module.exports = {
 								'developers/plugins/python/remove-module',
 								'developers/plugins/python/set-setting',
 								'developers/plugins/python/user-settings',
-								'developers/plugins/python/version'
+								'developers/plugins/python/version',
+                                'developers/plugins/python/plugin-path'
 							],
 						},
 						{
