@@ -123,14 +123,38 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
 		const { slug } = await params;
 
 		try {
-			return Response.json(await getDetails(slug), {
+			const response = Response.json(await getDetails(slug), {
 				status: 200,
 			});
+
+			response.headers.set('Access-Control-Allow-Origin', 'https://steamloopback.host');
+			response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+			response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+			return response;
 		} catch (error) {
-			return new Response(error.message, {
+			const response = new Response(error.message, {
 				status: 404,
 			});
+
+			response.headers.set('Access-Control-Allow-Origin', 'https://steamloopback.host');
+			response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+			response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+			return response;
 		}
 	};
 	return await CacheMiddleware(request, onRequest);
+}
+
+export async function OPTIONS() {
+	return new Response(null, {
+		status: 204,
+		headers: {
+			/** Whitelist the Steam Client to allow it to make requests */
+			'Access-Control-Allow-Origin': 'https://steamloopback.host',
+			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+			'Access-Control-Allow-Headers': 'Content-Type',
+		},
+	});
 }
