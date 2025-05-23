@@ -528,3 +528,8 @@ details {
 ul {
 	color: var(--paragraph-color) !important;
 }
+
+.dropdown__menu {
+	background: #131313 !important;
+	border: 1px solid #222222 !important;
+}

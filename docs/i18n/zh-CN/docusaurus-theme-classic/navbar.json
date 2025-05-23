@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Steam Homebrew.",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Steam Homebrew Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Themes": {
+    "message": "主题",
+    "description": "Navbar item with label Themes"
+  },
+  "item.label.Plugins": {
+    "message": "插件",
+    "description": "Navbar item with label Plugins"
+  },
+  "item.label.Contribute": {
+    "message": "贡献",
+    "description": "Navbar item with label Contribute"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
